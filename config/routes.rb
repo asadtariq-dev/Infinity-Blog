@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   scope module: 'authors' do
-    resources :posts
+    resources :posts do
+      resources :elements
+    end
   end
   # Defines the root path route ("/")
   # root "articles#index"
