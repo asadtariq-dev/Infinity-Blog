@@ -22,7 +22,11 @@ module Authors
     # POST /posts or /posts.json
     def create
       @post = current_author.posts.build(post_params)
-      redirect_to edit_post_path(@post) if @post.save
+      if @post.save
+        redirect_to edit_post_path(@post)
+      else
+        redirect_to new_post_path, notice: "#{@post.errors.full_messages}"
+      end
     end
 
     # PATCH/PUT /posts/1 or /posts/1.json
