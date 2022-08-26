@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-body pt-5">
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <small>
+          By <%= Author.find(@post.author_id).email %>
+        </small>
+        <% if @post.published? %>
+          <small>
+            <b>Published</b> about <%= time_ago_in_words(@post.published_at) %> ago
+          </small>
+        <%else%>
+          <small>Not published yet</small>
+        <%end%>
+      </div>
+    </div>
+    <div class="card blog-card border-0">
+      <div class="header-image" style="background-image: url(<%= url_for(@post.header_image) %>)"></div>
+    </div>
+    <div class="card-header">
+      <h1 class="card-title"><%= @post.title%></h1>
+    </div>
+    <div class="mb-3 p-3">
+      <div class="">
+        <%= @post.content%>
+      </div>
+    </div>
+  </div>
+</div>

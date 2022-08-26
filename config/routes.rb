@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :authors
   get 'home/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  root to: "readers/home#index"
+  root to: 'readers/home#index'
+
+  get '/blog/:id' => 'readers/posts#show', as: :blog_post
 
   scope module: 'authors' do
     resources :posts do
