@@ -1,10 +1,14 @@
 module Authors
   class PostsController < AuthorsController
-    before_action :set_post, only: %i[edit update destroy]
+    before_action :set_post, only: %i[show edit update destroy publish]
 
     # GET /posts or /posts.json
     def index
       @posts = current_author.posts
+    end
+
+    def show
+      @post = current_author.posts.find(params[:id])
     end
 
     # GET /posts/new
@@ -13,46 +17,34 @@ module Authors
     end
 
     # GET /posts/1/edit
-    def edit
-      @paragraph = @post.elements.build(element_type: 'paragraph')
-    end
+    def edit; end
 
     # POST /posts or /posts.json
     def create
       @post = current_author.posts.build(post_params)
-
-      respond_to do |format|
-        if @post.save
-          format.html { redirect_to post_url(@post), notice: 'Post was successfully created.' }
-          format.json { render :show, status: :created, location: @post }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @post.errors, status: :unprocessable_entity }
-        end
-      end
+      redirect_to edit_post_path(@post) if @post.save
     end
 
     # PATCH/PUT /posts/1 or /posts/1.json
     def update
-      respond_to do |format|
-        if @post.update(post_params)
-          format.html { redirect_to post_url(@post), notice: 'Post was successfully updated.' }
-          format.json { render :show, status: :ok, location: @post }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @post.errors, status: :unprocessable_entity }
-        end
+      redirect_to edit_post_path(@post) if @post.update(post_params)
+    end
+
+    def publish
+      @post = current_author.posts.find(params[:id])
+      if @post.published?
+        @post.update_attribute(:published, false)
+        @post.update_attribute(:published_at, nil)
+      else
+        @post.update_attribute(:published, true)
+        @post.update_attribute(:published_at, Time.now)
       end
+      redirect_to edit_post_path(@post)
     end
 
     # DELETE /posts/1 or /posts/1.json
     def destroy
-      @post.destroy
-
-      respond_to do |format|
-        format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
-        format.json { head :no_content }
-      end
+      redirect_to posts_path if @post.destroy
     end
 
     private
@@ -64,7 +56,8 @@ module Authors
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :description)
+      params.require(:post).permit(:title, :description, :content, :header_image, :published, :published_at)
     end
   end
 end
+
