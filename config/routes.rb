@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 
   scope module: 'authors' do
     resources :posts do
-      resources :elements
+      member do
+        patch :publish
+        put :publish
+        get :publish
+      end
     end
   end
   # Defines the root path route ("/")
