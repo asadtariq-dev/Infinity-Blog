@@ -36,14 +36,19 @@ module Authors
 
     def publish
       @post = current_author.posts.find(params[:id])
-      if @post.published?
-        @post.update_attribute(:published, false)
-        @post.update_attribute(:published_at, nil)
+      if @post.content.present?
+        notice = nil
+        if @post.published?
+          @post.update_attribute(:published, false)
+          @post.update_attribute(:published_at, nil)
+        else
+          @post.update_attribute(:published, true)
+          @post.update_attribute(:published_at, Time.now)
+        end
       else
-        @post.update_attribute(:published, true)
-        @post.update_attribute(:published_at, Time.now)
+        notice = 'Please Add Some Content To Publish'
       end
-      redirect_to edit_post_path(@post)
+      redirect_to edit_post_path(@post), notice: notice
     end
 
     # DELETE /posts/1 or /posts/1.json
@@ -64,4 +69,3 @@ module Authors
     end
   end
 end
-
