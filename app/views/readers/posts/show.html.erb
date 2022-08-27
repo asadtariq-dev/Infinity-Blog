@@ -44,7 +44,7 @@
   <div class="card">
     <div class="card-body rounded mt-4">
       <p class="mb-3"><strong><%= @post.comments.count%> Comments</strong></p>
-      <%= render @post.comments %>
+      <%= render @post.comments.order(id: :desc) %>
       <%= render partial: 'readers/comments/form', locals: {post: @post} %>
     </div>
   </div>
