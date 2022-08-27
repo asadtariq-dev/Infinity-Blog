@@ -23,9 +23,7 @@
     <div class="card-header rounded-bottom text-center">
       <small class="d-flex justify-content-between">
         <span>
-          <% if current_author.id == @post.author_id %>
-            You got
-          <% else %>
+          <% if current_author.id != @post.author_id %>
             <% like = current_author.likes.find_by(post: @post) %>
             <% if like.nil? %>
               <%= button_to "Like", likes_path, params: {like: {post_id: @post.id }}, method: :post, class:"btn btn-primary"%>
