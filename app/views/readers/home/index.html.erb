@@ -1,4 +1,9 @@
- <%= link_to "My Posts", posts_path, class: "btn btn-primary mb-3" %>
+<h4 class="d-flex justify-content-between mb-3">
+    <span>Blogs</span>
+  <span>
+    <%= link_to "My Posts", posts_path, class: "btn btn-primary mb-3" %>
+  </span>
+  </h4>
 <div class="row">
   <% @posts.each do |post| %>
     <div class="col-md6 col-lg-4">
