@@ -1,6 +1,10 @@
 <div class="card mb-3 rounded">
   <div class="card-header d-flex justify-content-between">
-    <small><%= comment.author.email%></small>
+    <% if comment.author == current_author %>
+      <small>You</small>
+    <%else%>
+      <small><%= comment.author.email%></small>
+    <% end %>
     <span>
       <small><%= time_ago_in_words(comment.created_at)%> ago</small>
     </span>
