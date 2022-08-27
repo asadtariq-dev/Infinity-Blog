@@ -1,6 +1,26 @@
 <div class="card">
-  <div class="card-body pt-5">
-    <div class="card-header text-center">
+  <div class="card-body rounded">
+    <div class="card blog-card border-0">
+      <div class="header-image rounded-top" style="background-image: url(<%= url_for(@post.header_image) %>)"></div>
+    </div>
+    <div class="card-header">
+      <h1 class="card-title"><%= @post.title%></h1>
+    </div>
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <small>
+          By <%= Author.find(@post.author_id).email %>
+        </small>
+        <% if @post.published? %>
+          <small>
+            <b>Published</b> <%= time_ago_in_words(@post.published_at) %> ago
+          </small>
+        <%else%>
+          <small>Not published yet</small>
+        <%end%>
+      </div>
+    </div>
+    <div class="card-header rounded-bottom text-center">
       <small class="d-flex justify-content-between">
         <span>
           <% if current_author.id == @post.author_id %>
@@ -10,32 +30,12 @@
             <% if like.nil? %>
               <%= button_to "Like", likes_path, params: {like: {post_id: @post.id }}, method: :post, class:"btn btn-primary"%>
             <%else%>
-              <%= button_to "Like", like_path(like), method: :delete, class:"btn btn-secondary"%>
+              <%= button_to "Liked", like_path(like), method: :delete, class:"btn btn-secondary"%>
             <% end %>
           <%end%>
           <%= @post.likes.count%> Likes
         </span>
       </small>
-    </div>
-    <div class="card-header">
-      <div class="d-flex justify-content-between">
-        <small>
-          By <%= Author.find(@post.author_id).email %>
-        </small>
-        <% if @post.published? %>
-          <small>
-            <b>Published</b> about <%= time_ago_in_words(@post.published_at) %> ago
-          </small>
-        <%else%>
-          <small>Not published yet</small>
-        <%end%>
-      </div>
-    </div>
-    <div class="card blog-card border-0">
-      <div class="header-image rounded-top" style="background-image: url(<%= url_for(@post.header_image) %>)"></div>
-    </div>
-    <div class="card-header">
-      <h1 class="card-title"><%= @post.title%></h1>
     </div>
     <div class="mb-3 p-3">
       <div class="">
