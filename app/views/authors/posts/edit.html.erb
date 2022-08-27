@@ -3,57 +3,51 @@
     <%= link_to "Back", posts_path(@post), class:"btn btn-secondary mb-3"%>
     <div class="card">
       <div class="card-header">
-      Editing Post
+        Editing Post
       </div>
       <div class="card-body">
         <%= render "form", post: @post %>
       </div>
       <div class="card-footer">
-      <%= link_to "Delete", post_path(@post), class: "btn btn-danger btn-block", data: { turbo_method: :delete,
+        <%= link_to "Delete", post_path(@post), class: "btn btn-danger btn-block", data: { turbo_method: :delete,
     turbo_confirm: "Are you sure?" } %>
       </div>
-
     </div>
   </div>
-
   <div class="col-md-8">
     <div class="d-flex justify-content-between">
-    <div>
-      <%= link_to  "Preview", post_path, class: "btn btn-primary" %>
-    </div>
-    <% if @post.published? %>
-      <%= link_to "Unpublish", publish_post_path(@post), method: :put, data: { confirm: 'Are you sure?' }, class:"btn btn-secondary mb-3"%>
-    <%else%>
-      <%= link_to "Publish", publish_post_path(@post), method: :put, class:"btn btn-dark mb-3"%>
-    <%end%>
-    </div>
-      <div class="card mb-5">
-        <div class="card-header text-right">
-          <% if @post.published? %>
-            <b>Published</b> about <%= time_ago_in_words(@post.published_at) %> ago
-          <%else%>
-            Not published yet
-          <%end%>
+      <div>
+        <%= link_to  "Preview", post_path, class: "btn btn-primary" %>
       </div>
-        <div class="card-body pt-5">
-            <div class="mb-3 p-3">
-              <div class="post-form">
-                <%= form_with model: @post do |form| %>
-                  <div class="field">
-                    <%= form.rich_text_area :content %>
-                  </div>
-                  <div class="mt-3">
-                    <%= form.submit "Save", class:"btn btn-primary" %>
-                    <a href='#' class="cancel btn btn-secondary">Cancel</a>
-                  </div>
-                <% end %>
+      <% if @post.published? %>
+        <%= link_to "Unpublish", publish_post_path(@post), method: :put, data: { confirm: 'Are you sure?' }, class:"btn btn-secondary mb-3"%>
+      <%else%>
+        <%= link_to "Publish", publish_post_path(@post), method: :put, class:"btn btn-dark mb-3"%>
+      <%end%>
+    </div>
+    <div class="card mb-5">
+      <div class="card-header text-right">
+        <% if @post.published? %>
+          <b>Published</b> about <%= time_ago_in_words(@post.published_at) %> ago
+        <%else%>
+          Not published yet
+        <%end%>
+      </div>
+      <div class="card-body pt-5">
+        <div class="mb-3 p-3">
+          <div class="post-form">
+            <%= form_with model: @post do |form| %>
+              <div class="field">
+                <%= form.rich_text_area :content %>
               </div>
-            </div>
-
+              <div class="mt-3">
+                <%= form.submit "Save", class:"btn btn-primary" %>
+                <a href='#' class="cancel btn btn-secondary">Cancel</a>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
-
+    </div>
   </div>
 </div>
-
-
