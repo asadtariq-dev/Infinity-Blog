@@ -9,7 +9,7 @@
     <div class="card-header">
       <div class="d-flex justify-content-between">
         <small>
-          By <%= Author.find(@post.author_id).email %>
+          By <%= @post.author.email %>
         </small>
         <% if @post.published? %>
           <small>
@@ -42,9 +42,9 @@
     </div>
   </div>
   <div class="card">
-  <div class="card-body rounded mt-4">
-    <p class="mb-3"><strong><%= @post.comments.count%> Comments</strong></p>
-    <%= render @post.comments %>
-    <%= render_partial 'comments/form' %>
+    <div class="card-body rounded mt-4">
+      <p class="mb-3"><strong><%= @post.comments.count%> Comments</strong></p>
+      <%= render @post.comments %>
+      <%= render partial: 'readers/comments/form', locals: {post: @post} %>
+    </div>
   </div>
-</div>
