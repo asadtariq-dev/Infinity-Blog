@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   scope module: 'authors' do
     resources :posts do
+      resources :comments, only: %i[create]
       member do
         patch :publish
         put :publish
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
   # Defines the root path route ("/")
   # root "articles#index"
 end
