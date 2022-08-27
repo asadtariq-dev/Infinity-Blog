@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card mb-5">
   <div class="card-body rounded">
     <div class="card blog-card border-0">
       <div class="header-image rounded-top" style="background-image: url(<%= url_for(@post.header_image) %>)"></div>
@@ -40,5 +40,11 @@
         <%= @post.content%>
       </div>
     </div>
+  </div>
+  <div class="card">
+  <div class="card-body rounded mt-4">
+    <p class="mb-3"><strong><%= @post.comments.count%> Comments</strong></p>
+    <%= render @post.comments %>
+    <%= render_partial 'comments/form' %>
   </div>
 </div>
