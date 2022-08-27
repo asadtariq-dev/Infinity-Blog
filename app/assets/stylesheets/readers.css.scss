@@ -4,7 +4,7 @@ $secondary-color: salmon;
 $secondary-hover: rgba(127, 2, 253, 0.524);
 $bg-color: #0d1117;
 
-.readers  {
+.readers {
   height: 100%;
   background-color: $bg-color;
   margin: 0;
@@ -12,28 +12,41 @@ $bg-color: #0d1117;
   // font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.874);
-  .card-header{
-    background-color: #1c2637b5;;
+
+  .card-header {
+    background-color: $bg-color
   }
-  .card-body{
+
+  .card {
+    background-color: $bg-color;
+    border-color: $bg-color;
+  }
+
+  .card-body {
     background-color: #1c2637e0;
     color: rgba(255, 255, 255, 0.874);
   }
-  .card-footer{
-    background-color: #1c2637b5;;
+
+  .card-footer {
+    background-color: #1c2637b5;
+    ;
   }
-  .post-card{
+
+  .post-card {
     height: 550px;
-    .header-image{
+
+    .header-image {
       width: 100%;
       height: 230px;
       background-size: cover;
       background-position: center;
     }
   }
-  .blog-card{
+
+  .blog-card {
     height: 450px;
-    .header-image{
+
+    .header-image {
       width: 100%;
       height: 450px;
       background-size: cover;
