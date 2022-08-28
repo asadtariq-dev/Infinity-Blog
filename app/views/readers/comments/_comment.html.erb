@@ -10,5 +10,17 @@
     </span>
   </div>
   <div class="card-body rounded-bottom">
-    <%= comment.content%></div>
+    <div class="mb-3">
+      <%= comment.content%>
+    </div>
+    <div class="pl-4">
+      <%= render comment.comments.includes(:author).order(id: :desc) %>
+    </div>
+    <% if comment.parent_id.nil? %>
+      <a href="#" class="comment-form-display mb-1 text-decoration-none">Reply</a>
+    <% end %>
+    <div class="comment-form">
+      <%= render partial: 'readers/comments/form', locals: {post: comment.post, parent: comment} %>
+    </div>
+  </div>
 </div>
