@@ -6,7 +6,12 @@ Rails.application.routes.draw do
 
   get '/blog/:id' => 'readers/posts#show', as: :blog_post
 
-  resources :likes, only: %i[create destroy]
+    resources :likes, only: %i[create destroy]
+
+
+  resources :comments do
+    resources :likes, only: %i[create destroy]
+  end
 
   scope module: 'authors' do
     resources :posts do
