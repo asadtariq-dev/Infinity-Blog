@@ -17,7 +17,9 @@
       <%= render comment.comments.includes(:author).order(id: :desc) %>
     </div>
     <% if comment.parent_id.nil? %>
-      <a href="#" class="comment-form-display mb-1 text-decoration-none">Reply</a>
+      <div class="comment-form-display mb-2">
+        <a href="#" class="text-decoration-none">Reply</a>
+      </div>
     <% end %>
     <div class="comment-form">
       <%= render partial: 'readers/comments/form', locals: {post: comment.post, parent: comment} %>
