@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-4">
-    <%= link_to "Back", posts_path(@post), class:"btn btn-secondary mb-3"%>
-    <div class="card">
+    <%= link_to "Back", author_profile_path(current_author), class:"btn btn-secondary mb-3"%>
+    <div class="card border-0">
       <div class="card-header">
         Editing Post
       </div>
@@ -25,7 +25,7 @@
         <%= link_to "Publish", publish_post_path(@post), method: :put, class:"btn btn-dark mb-3"%>
       <%end%>
     </div>
-    <div class="card mb-5">
+    <div class="card mb-5 border-0">
       <div class="card-header text-right">
         <% if @post.published? %>
           <b>Published</b> about <%= time_ago_in_words(@post.published_at) %> ago
