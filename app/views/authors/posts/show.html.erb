@@ -4,7 +4,7 @@
     <div class="card-header">
       <div class="d-flex justify-content-between">
         <small>
-          By <%= current_author.email%>
+          By <strong><%= @post.author.first_name %> <%= @post.author.last_name %></strong>
         </small>
         <% if @post.published? %>
           <small>
