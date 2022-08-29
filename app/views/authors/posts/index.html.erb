@@ -1,8 +1,16 @@
+<small class="d-flex justify-content-between mb-2">
+  <span></span>
+  <span class="d-flex ">
+signed in as <%= current_author.first_name%> <%= current_author.last_name%>
+  </span>
+</small>
 <h4 class="d-flex justify-content-between mb-4">
-  <span>Posts</span>
-  <span>
-    <%= link_to  "Blogs", root_path, class:"btn btn-primary" %>
-    <%= link_to  "New Post", new_post_path, class:"btn btn-primary" %>
+  <span>Profile</span>
+  <span class="d-flex ">
+    <%= link_to  "Home", root_path, class:"btn btn-primary mb-3 mr-2" %>
+    <%= link_to  "New Post", new_post_path, class:"btn btn-primary mb-3 mr-2" %>
+    <%= button_to "Edit Profile", edit_author_registration_path, method: :get, class: "btn btn-primary mb-3 mr-2" %>
+    <%= button_to "Sign Out", destroy_author_session_path, method: :delete, class: "btn btn-danger mb-3" %>
   </span>
 </h4>
 <% @posts.each do |post| %>
