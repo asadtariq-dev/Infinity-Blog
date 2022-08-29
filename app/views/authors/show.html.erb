@@ -1,7 +1,7 @@
 <small class="d-flex justify-content-between mb-2">
   <span></span>
   <span class="d-flex ">
-signed in as <%= current_author.first_name%> <%= current_author.last_name%>
+    signed in as <%= current_author.first_name%> <%= current_author.last_name%>
   </span>
 </small>
 <h4 class="d-flex justify-content-between mb-4">
@@ -13,32 +13,13 @@ signed in as <%= current_author.first_name%> <%= current_author.last_name%>
     <%= button_to "Sign Out", destroy_author_session_path, method: :delete, class: "btn btn-danger mb-3" %>
   </span>
 </h4>
-<% @posts.each do |post| %>
-  <%= link_to edit_post_path(post), class: 'text-decoration-none' do %>
-    <div class="card mb-3 post-card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-2">
-            <% if post.header_image.present? %>
-              <div class="header-image rounded" style="background-image: url(<%= url_for(post.header_image) %>);"></div>
-            <%end%>
-          </div>
-          <div class="col-md-10">
-            <% if post.published? %>
-              <span class="badge badge-primary mb-3"> Published</span>
-            <%else%>
-              <span class="badge badge-secondary mb-3"> Unpublished</span>
-            <%end%>
-            <% if post.published? %>
-              <small>
-                <%= time_ago_in_words(post.published_at) %> ago
-              </small>
-            <%end%>
-            <h5 class="card-title mb-2"><%= post.title%></h5>
-            <p class="text-secondary"><%= post.description%></p>
-          </div>
-        </div>
-      </div>
+<div class="card bg-transparent rounded border-0">
+  <% if current_author.posts.present? %>
+    <div class="card-header bg-transparent border-0">
+      Posts
     </div>
+    <%= render "authors/posts/posts", posts: @posts %>
+  <%else%>
+    <%= render partial: "authors/posts/empty" %>
   <% end %>
-<% end %>
+</div>
