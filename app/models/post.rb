@@ -2,8 +2,8 @@ class Post < ApplicationRecord
   belongs_to :author
   has_rich_text :content
   has_one_attached :header_image
-  has_many :likes
-  has_many :comments
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :title, :description, :header_image, presence: true
   validates_length_of :description, within: 20..200

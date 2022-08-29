@@ -3,5 +3,5 @@ class Comment < ApplicationRecord
   belongs_to :author
   belongs_to :parent, class_name: 'Comment', optional: true
   has_many :comments, foreign_key: :parent_id
-  has_many :likes
+  has_many :likes, dependent: :destroy
 end
