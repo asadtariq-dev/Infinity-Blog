@@ -4,6 +4,6 @@ class AuthorsController < ApplicationController
   layout 'users/authors'
 
   def show
-    @posts = current_author.posts
+    @posts = current_author.posts.order(published_at: :desc)
   end
 end
