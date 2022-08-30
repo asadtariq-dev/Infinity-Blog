@@ -26,6 +26,9 @@
         <small>
           By <strong><%= @post.author.first_name %> <%= @post.author.last_name %></strong>
         </small>
+                <small>
+          <strong class="text-danger"><%= @post.reports.count %> Reports</strong>
+        </small>
       </div>
     </div>
     <div class="card-header rounded-bottom text-center">
