@@ -1,7 +1,7 @@
 class ModeratorsController < ApplicationController
   def index
     @unapproved_posts = Post.where(pending: true).order(created_at: :desc)
-    @approved_posts = Post.where(published: true).order(id: :desc)
+    @reported_posts = Post.joins(:reports).distinct.order(id: :desc)
   end
 
   def show
@@ -13,6 +13,7 @@ class ModeratorsController < ApplicationController
     if @post.published?
       @post.update_attribute(:published, false)
       @post.update_attribute(:published_at, nil)
+      @post.update_attribute(:submitted, false)
     else
       @post.update_attribute(:published, true)
       @post.update_attribute(:pending, false)
