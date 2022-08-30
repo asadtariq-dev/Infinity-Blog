@@ -6,6 +6,14 @@ Rails.application.routes.draw do
   get '/blog/:id' => 'readers/posts#show', as: :blog_post
   get '/author/:id' => 'authors#show', as: :author_profile
 
+  resources :moderators do
+    member do
+      patch :publish
+      put :publish
+      get :publish
+    end
+  end
+
   resources :likes, only: %i[create destroy]
 
   resources :comments do
@@ -16,9 +24,9 @@ Rails.application.routes.draw do
     resources :posts do
       resources :comments, only: %i[create]
       member do
-        patch :publish
-        put :publish
-        get :publish
+        patch :submit
+        put :submit
+        get :submit
       end
     end
   end

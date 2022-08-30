@@ -1,0 +1,38 @@
+<h4 class="d-flex justify-content-center mb-4">
+  <span>
+Moderator Dashboard
+  </span>
+
+</h4>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card border-0">
+      <div class="card-header text-center">
+        Pending Posts
+      </div>
+      <div class="card-body">
+        <% if @unapproved_posts.present? %>
+          <%= render "posts", posts: @unapproved_posts %>
+        <%else%>
+          <%= render partial: "empty" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-5 border-0">
+      <div class="card-header text-center">
+        Approved Posts
+      </div>
+      <div class="card-body">
+        <% if @approved_posts.present? %>
+          <%= render "posts", posts: @approved_posts %>
+        <%else%>
+          <%= render partial: "empty" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
