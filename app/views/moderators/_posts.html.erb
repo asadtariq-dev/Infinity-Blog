@@ -12,7 +12,7 @@
         </div>
         <% if post.published? %>
           <small class="mb-3 text-danger mt-auto">
-            <%= post.reports.count%> Reports
+             <strong><%= pluralize(post.reports.count, "Report")%></strong>
           </small>
           <%= link_to "Unpublish", publish_moderator_path(post), method: :put, data: { confirm: 'Are you sure?' }, class:"btn btn-secondary mt-auto mb-3"%>
         <%else%>

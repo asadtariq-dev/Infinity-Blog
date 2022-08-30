@@ -42,7 +42,7 @@
           <% end %>
         <%else%>
           <small class="mb-3 text-danger">
-            <%= comment.reports.count%> reports
+             <%= pluralize(comment.reports.count, "Report")%>
           </small>
         <%end%>
         <span>
@@ -50,11 +50,11 @@
         <div class="mb-6 ">
           <span class="d-flex ">
             <small class="mr-2 text-center" >
-              <%= comment.likes.count %> likes
+               <%= pluralize(comment.likes.count, "Like")%>
             </small>
             <% if comment.parent_id.nil? %>
               <small>
-                <%= comment.comments.count %> replies
+                 <%= pluralize(comment.comments.count, "Reply")%>
               </small>
             <% end %>
           </span>
