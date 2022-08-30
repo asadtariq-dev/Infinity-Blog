@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :likes, only: %i[create destroy]
+  resources :reports, only: %i[create destroy]
 
   resources :comments do
     resources :likes, only: %i[create destroy]

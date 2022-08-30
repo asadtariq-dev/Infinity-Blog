@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_29_214107) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_30_121347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -113,6 +113,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_214107) do
     t.index ["author_id"], name: "index_posts_on_author_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.bigint "author_id", null: false
+    t.bigint "post_id"
+    t.bigint "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id", "post_id", "comment_id"], name: "index_reports_on_author_id_and_post_id_and_comment_id", unique: true
+    t.index ["author_id"], name: "index_reports_on_author_id"
+    t.index ["comment_id"], name: "index_reports_on_comment_id"
+    t.index ["post_id"], name: "index_reports_on_post_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "authors"
@@ -121,4 +133,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_214107) do
   add_foreign_key "likes", "comments"
   add_foreign_key "likes", "posts"
   add_foreign_key "posts", "authors"
+  add_foreign_key "reports", "authors"
+  add_foreign_key "reports", "comments"
+  add_foreign_key "reports", "posts"
 end
