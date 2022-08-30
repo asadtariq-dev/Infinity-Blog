@@ -1,22 +1,23 @@
 <% posts.each do |post| %>
   <%= link_to moderator_path(post), class: 'text-decoration-none text-white' do %>
-    <div class="col-md-6 col-lg-6">
-      <div class="card post-card mb-4">
-        <div class="header-image rounded-top" style="background-image: url(<%= url_for(post.header_image) %>)"></div>
-        <div class="card-body rounded-bottom pt-2 d-flex flex-column">
-          <h5 class="card-title"><%= post.title %></h5>
-          <p class="card-text"> <%= truncate(post.description, length: 200) %></p>
-          <div class="d-flex justify-content-between">
-            <small class="mb-3">
-              <%= time_ago_in_words(post.created_at) %> ago
-            </small>
-          </div>
-          <% if post.published? %>
-            <%= link_to "Unpublish", publish_moderator_path(post), method: :put, data: { confirm: 'Are you sure?' }, class:"btn btn-secondary mt-auto mb-3"%>
-          <%else%>
-            <%= link_to "Approve", publish_moderator_path(post), method: :put, class:"btn btn-success mt-auto mb-3"%>
-          <%end%>
+    <div class="card post-card mb-4">
+      <div class="header-image rounded-top" style="background-image: url(<%= url_for(post.header_image) %>)"></div>
+      <div class="card-body rounded-bottom pt-2 d-flex flex-column">
+        <h5 class="card-title"><%= post.title %></h5>
+        <p class="card-text"> <%= truncate(post.description, length: 200) %></p>
+        <div class="d-flex justify-content-between">
+          <small class="mb-3">
+            <%= time_ago_in_words(post.created_at) %> ago
+          </small>
         </div>
+        <% if post.published? %>
+          <small class="mb-3 text-danger mt-auto">
+            <%= post.reports.count%> Reports
+          </small>
+          <%= link_to "Unpublish", publish_moderator_path(post), method: :put, data: { confirm: 'Are you sure?' }, class:"btn btn-secondary mt-auto mb-3"%>
+        <%else%>
+          <%= link_to "Approve", publish_moderator_path(post), method: :put, class:"btn btn-success mt-auto mb-3"%>
+        <%end%>
       </div>
     </div>
   <% end %>
