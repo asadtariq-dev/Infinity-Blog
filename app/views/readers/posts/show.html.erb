@@ -33,16 +33,16 @@
           <%end%>
           <%= @post.likes.count%> Likes
         </span>
-        <span>
+        <span class="text-danger">
           <% if current_author.id != @post.author_id %>
             <% report = current_author.reports.find_by(post: @post) %>
             <% if report.nil? %>
-              <%= button_to "Report", reports_path, params: {report: {post_id: @post.id }}, method: :post, class:"btn btn-primary"%>
+              <%= button_to "Report", reports_path, params: {report: {post_id: @post.id }}, method: :post, class:"btn btn-dark text-danger"%>
             <%else%>
-              <%= button_to "Cancel Report", report_path(report), method: :delete, class:"btn btn-secondary"%>
+              <%= button_to "Cancel Report", report_path(report), method: :delete, class:"btn btn-dark text-danger"%>
             <% end %>
-            <%else%>
-              <%= @post.reports.count%> reports
+          <%else%>
+            <%= @post.reports.count%> reports
           <%end%>
         </span>
       </small>

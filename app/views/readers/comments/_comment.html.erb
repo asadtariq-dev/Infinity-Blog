@@ -31,22 +31,21 @@
             <%= render partial: 'readers/comments/form', locals: {post: comment.post, parent: comment} %>
           </div>
         <% end %>
-          </span>
-        <span>
-          <% if current_author.id != comment.author_id %>
-            <% report = current_author.reports.find_by(comment: comment) %>
-            <% if report.nil? %>
-            <i class="fa-solid fa-diamond-exclamation"></i>
-              <%= button_to "Report", reports_path, params: {report: {comment_id: comment.id }}, method: :post, class:"btn btn-dark btn-sm"%>
-            <%else%>
-              <%= button_to "Cancel Report", report_path(report), method: :delete, class:"btn btn-secondary btn-sm"%>
-            <% end %>
+      </span>
+      <span>
+        <% if current_author.id != comment.author_id %>
+          <% report = current_author.reports.find_by(comment: comment) %>
+          <% if report.nil? %>
+            <%= button_to "Report", reports_path, params: {report: {comment_id: comment.id }}, method: :post, class:"btn btn-dark btn-sm text-danger"%>
           <%else%>
-            <small class="mb-3">
-              <%= comment.reports.count%> reports
-            </small>
-          <%end%>
-          <span>
+            <%= button_to "Cancel Report", report_path(report), method: :delete, class:"btn btn-dark btn-sm text-danger"%>
+          <% end %>
+        <%else%>
+          <small class="mb-3 text-danger">
+            <%= comment.reports.count%> reports
+          </small>
+        <%end%>
+        <span>
         </div>
         <div class="mb-6 ">
           <span class="d-flex ">
