@@ -4,7 +4,7 @@
       <small>You</small>
     <%else%>
       <small>
-        <strong><%= @post.author.first_name %> <%= @post.author.last_name %></strong>
+        <strong><%= comment.author.first_name %> <%= comment.author.last_name %></strong>
       </small>
     <% end %>
     <span>
@@ -61,7 +61,7 @@
           <span></span>
         </div>
         <div class="pl-4">
-          <%= render comment.comments.includes(:author).order(id: :desc) %>
+          <%= render comment.comments.includes(:author).order(:id) %>
         </div>
       </div>
     </div>
