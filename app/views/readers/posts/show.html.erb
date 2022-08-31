@@ -31,7 +31,6 @@
               <%= button_to "🤍", like_path(like), method: :delete, class:"btn btn-secondary"%>
             <% end %>
           <%end%>
-
           <%= pluralize(@post.likes.count, "Like")%>
         </span>
         <span class="text-danger">
@@ -43,7 +42,7 @@
               <%= button_to "Cancel Report", report_path(report), method: :delete, class:"btn btn-dark text-danger"%>
             <% end %>
           <%else%>
-             <%= pluralize(@post.reports.count, "Report")%>
+            <%= pluralize(@post.reports.count, "Report")%>
           <%end%>
         </span>
       </small>
@@ -55,12 +54,6 @@
     </div>
   </div>
   <div class="card mb-3">
-    <div class="card-body rounded mt-4">
-      <p class="mb-3"><strong> <%= pluralize(@post.comments.count, "Comment")%></strong></p>
-      <%= render @post.comments.where(parent_id: nil).includes(:author).order(id: :desc) %>
-      <div class="mt-3 mb-3">
-        <%= render partial: 'readers/comments/form', locals: {post: @post, parent: nil} %>
-      </div>
-    </div>
+    <%= render 'shared/comment_suggestion_tab' %>
   </div>
 </div>

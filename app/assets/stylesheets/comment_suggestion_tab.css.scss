@@ -1,0 +1,21 @@
+.comment-suggestion-tab {
+  .nav-tabs .nav-link.active {
+    background-color: #424c5eb5;
+    color: #fff;
+    border: 2px solid #1c2637b5;
+  }
+
+  .nav-tabs .nav-link {
+    color: #ffff;
+    border: 2px solid #1c2637b5;
+  }
+
+  .nav-tabs .nav-link:hover {
+    border: 3px solid #1c2637b5;
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid #1c2637b5;
+  }
+
+}

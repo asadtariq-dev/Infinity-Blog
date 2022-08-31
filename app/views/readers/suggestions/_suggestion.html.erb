@@ -1,0 +1,44 @@
+<div class="card mt-3 rounded">
+  <div class="card-header d-flex justify-content-between">
+    <% if suggestion.author == current_author %>
+      <small>You</small>
+    <%else%>
+      <small>
+        <strong><%= suggestion.author.first_name %> <%= suggestion.author.last_name %></strong>
+      </small>
+    <% end %>
+    <span>
+      <small><%= time_ago_in_words(suggestion.created_at)%> ago</small>
+    </span>
+  </div>
+  <div class="card-body rounded-bottom">
+    <div class="mb-3">
+      <%= suggestion.content%>
+    </div>
+    <div class="mb-1 d-flex justify-content-between text-center">
+      <span class="d-flex">
+        <% if suggestion.parent_id.nil? %>
+          <%if current_author.id == @post.author_id%>
+            <%= button_to "Accept", "#", params: {like: {suggestion_id: suggestion.id }}, method: :post, class:"btn btn-success btn-sm mr-2" %>
+          <%end%>
+          <small class="comment-form-display mr-2 height-0 btn btn-primary btn-sm">
+            <a href="#" class="text-decoration-none text-white">Reply</a>
+          </small>
+          <div class="comment-form">
+            <%= render partial: 'readers/suggestions/form', locals: {post: suggestion.post, parent: suggestion} %>
+          </div>
+        <% end %>
+      </span>
+      <span>
+        <% if suggestion.parent_id.nil? %>
+          <% if current_author.id == @post.author_id %>
+            <%= button_to "Reject", "#", params: {report: {suggestion_id: suggestion.id }}, method: :post, class:"btn btn-dark btn-sm text-danger"%>
+          <%end%>
+        <%end%>
+        <span>
+        </div>
+        <div class="pl-4">
+          <%= render suggestion.suggestions.includes(:author).order(:id) %>
+        </div>
+      </div>
+    </div>
