@@ -8,5 +8,6 @@ class Author < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :suggestions, dependent: :destroy
   has_many :reports, dependent: :destroy
 end

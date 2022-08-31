@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   scope module: 'authors' do
     resources :posts do
       resources :comments, only: %i[create]
+      resources :suggestions, only: %i[create destroy]
       member do
         patch :submit
         put :submit

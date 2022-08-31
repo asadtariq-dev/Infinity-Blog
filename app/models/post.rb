@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :reports, dependent: :destroy
+  has_many :suggestions, dependent: :destroy
 
   validates :title, :description, :header_image, presence: true
   validates_length_of :description, within: 5..200
