@@ -10,11 +10,19 @@ class Post < ApplicationRecord
   validates :title, :description, :header_image, presence: true
   validates_length_of :description, within: 5..200
 
-  scope :published, -> do
-    where(published: true)
-  end
+  scope :published?, lambda { |post_id|
+    find(post_id).published?
+  }
 
-  scope :most_recent_posts, -> do
-   order(published_at: :desc)
-  end
+  scope :published, lambda {
+    where(published: true)
+  }
+
+  scope :most_recent_posts, lambda {
+    order(published_at: :desc)
+  }
+
+  scope :delete_reports, lambda { |post_id|
+    find(post_id).reports.destroy_all
+  }
 end

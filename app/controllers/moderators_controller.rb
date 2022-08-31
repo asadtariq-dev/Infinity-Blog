@@ -13,6 +13,7 @@ class ModeratorsController < ApplicationController
     if @post.published?
       @post.update_attribute(:published, false)
       @post.update_attribute(:published_at, nil)
+      Post.delete_reports(@post.id)
       @post.update_attribute(:submitted, false)
     else
       @post.update_attribute(:published, true)
