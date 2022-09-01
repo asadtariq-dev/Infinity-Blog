@@ -5,6 +5,11 @@ test:
 local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
+cloudinary:
+  service: Cloudinary
+  cloud_name: 'devsinc-cloud'
+  api_key: '784712982576239'
+  api_secret: 'KuWuP6FZHgkc0sAAmwJ1qp9wWh8'
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:

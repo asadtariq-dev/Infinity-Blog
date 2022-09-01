@@ -23,27 +23,10 @@
     <div class="card-header rounded-bottom text-center">
       <small class="d-flex justify-content-between">
         <span>
-          <% if current_author.id != @post.author_id %>
-            <% like = current_author.likes.find_by(post: @post) %>
-            <% if like.nil? %>
-              <%= button_to "♡", likes_path, params: {like: {post_id: @post.id }}, method: :post, class:"btn btn-primary"%>
-            <%else%>
-              <%= button_to "🤍", like_path(like), method: :delete, class:"btn btn-secondary"%>
-            <% end %>
-          <%end%>
-          <%= pluralize(@post.likes.count, "Like")%>
+          <%= render 'shared/post_like', post: @post %>
         </span>
         <span class="text-danger">
-          <% if current_author.id != @post.author_id %>
-            <% report = current_author.reports.find_by(post: @post) %>
-            <% if report.nil? %>
-              <%= button_to "Report", reports_path, params: {report: {post_id: @post.id }}, method: :post, class:"btn btn-dark text-danger"%>
-            <%else%>
-              <%= button_to "Cancel Report", report_path(report), method: :delete, class:"btn btn-dark text-danger"%>
-            <% end %>
-          <%else%>
-            <%= pluralize(@post.reports.count, "Report")%>
-          <%end%>
+           <%= render 'shared/report', locals: {comment: nil, post: @post} %>
         </span>
       </small>
     </div>
@@ -53,7 +36,7 @@
       </div>
     </div>
   </div>
-  <div class="card mb-3">
-    <%= render 'shared/comment_suggestion_tab' %>
-  </div>
+</div>
+<div class="card mb-3">
+  <%= render 'shared/comment_suggestion_tab', post: @post %>
 </div>

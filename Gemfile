@@ -48,7 +48,9 @@ gem "sassc-rails"
 gem 'sass-rails'
 gem 'webpacker', '~> 3.5'
 gem 'rails_admin', '~> 3.0'
-
+gem 'activestorage-cloudinary-service'
+gem 'cloudinary'
+gem 'simple_form'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

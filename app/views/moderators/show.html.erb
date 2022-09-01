@@ -13,34 +13,4 @@
     <%end%>
   </span>
 </h4>
-<div class="card mb-5">
-  <div class="card-body rounded">
-    <div class="card blog-card border-0">
-      <div class="header-image rounded-top" style="background-image: url(<%= url_for(@post.header_image) %>)"></div>
-    </div>
-    <div class="card-header">
-      <h1 class="card-title"><%= @post.title%></h1>
-    </div>
-    <div class="card-header">
-      <div class="d-flex justify-content-between">
-        <small>
-          By <strong><%= @post.author.first_name %> <%= @post.author.last_name %></strong>
-        </small>
-                <small>
-          <strong class="text-danger"><%= @post.reports.count %> Reports</strong>
-        </small>
-      </div>
-    </div>
-    <div class="card-header rounded-bottom text-center">
-      <small class="d-flex justify-content-between">
-        <span>
-        </span>
-      </small>
-    </div>
-    <div class="mb-3 p-3">
-      <div class="">
-        <%= @post.content%>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'shared/post', post: @post  %>
