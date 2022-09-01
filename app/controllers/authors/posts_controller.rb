@@ -61,9 +61,9 @@ module Authors
           @post.update_attribute(:submitted_at, Time.now)
         end
       else
-        notice = 'Please Add Some Content To Submit'
+        message = 'Please Add Some Content To Submit'
       end
-      redirect_to edit_post_path(@post), notice: notice
+      redirect_to edit_post_path(@post), alert: message
     end
 
     # DELETE /posts/1 or /posts/1.json
