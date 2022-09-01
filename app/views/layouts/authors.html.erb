@@ -14,8 +14,7 @@
 
   <body class="authors pb-5">
     <div class="container">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+    <%= render partial: 'shared/alerts' %>
       <%= yield %>
     </div>
   </body>

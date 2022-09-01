@@ -5,4 +5,6 @@ class Comment < ApplicationRecord
   has_many :comments, foreign_key: :parent_id
   has_many :likes, dependent: :destroy
   has_many :reports, dependent: :destroy
+
+  validates :content, presence: true
 end

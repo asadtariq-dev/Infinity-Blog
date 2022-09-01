@@ -1,0 +1,15 @@
+
+$danger-color: rgba(255, 93, 93, 0.79);
+$success-color: rgba(153, 255, 153, 0.734);
+
+.alert-success {
+  margin-top: 5px;
+  color: white;
+  background-color: $success-color;
+}
+
+.alert-danger {
+  margin-top: 5px;
+  color: white;
+  background-color: $danger-color;
+}

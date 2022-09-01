@@ -22,16 +22,28 @@ module Authors
     # POST /posts or /posts.json
     def create
       @post = current_author.posts.build(post_params)
-      if @post.save
-        redirect_to edit_post_path(@post)
-      else
-        redirect_to new_post_path, notice: "#{@post.errors.full_messages}"
+      respond_to do |format|
+        if @post.save
+          format.html { redirect_to edit_post_path(@post), notice: 'Post was successfully created.' }
+          format.json { render :show, status: :created, location: @post }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
       end
     end
 
     # PATCH/PUT /posts/1 or /posts/1.json
     def update
-      redirect_to edit_post_path(@post) if @post.update(post_params)
+      respond_to do |format|
+        if @post.update(post_params)
+          format.html { redirect_to edit_post_path(@post), notice: 'Post was successfully created.' }
+          format.json { render :show, status: :created, location: @post }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @post.errors, status: :unprocessable_entity }
+        end
+      end
     end
 
     def submit
