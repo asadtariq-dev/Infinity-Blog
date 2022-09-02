@@ -5,20 +5,14 @@
         <h6 class="card-title mb-0">Log in</h6>
       </div>
       <div class="card-body">
-
-
-
-        <%= simple_form_for(resource, as: resource_name, local:true, url: session_path(resource_name)) do |f| %>
-        <%= f.error_notification %>
-
-
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-group">
             <%= f.label :email %><br />
-            <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email", required: true %>
+            <%= f.email_field :email, class: 'form-control', autofocus: true, autocomplete: "email" %>
           </div>
           <div class="form-group">
             <%= f.label :password %><br />
-            <%= f.password_field :password, class: 'form-control', autocomplete: "current-password", required: true %>
+            <%= f.password_field :password, class: 'form-control', autocomplete: "current-password" %>
           </div>
           <% if devise_mapping.rememberable? %>
             <div class="display-block">

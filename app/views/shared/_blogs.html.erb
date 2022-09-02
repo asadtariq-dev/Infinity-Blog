@@ -1,0 +1,19 @@
+<div class="row">
+  <% posts.each do |post| %>
+    <div class="col-md6 col-lg-4">
+      <div class="card post-card mb-4">
+        <div class="header-image rounded-top" style="background-image: url(<%= url_for(post.header_image) %>)"></div>
+        <div class="card-body rounded-bottom pt-2 d-flex flex-column">
+          <h5 class="card-title"><%= post.title %></h5>
+          <p class="card-text"> <%= truncate(post.description, length: 200) %></p>
+          <div class="d-flex justify-content-between">
+            <small class="mb-3">
+              <%= time_ago_in_words(post.published_at) %> ago
+            </small>
+          </div>
+          <%= link_to "Read Blog", blog_post_path(post), class: "btn btn-primary mt-auto" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

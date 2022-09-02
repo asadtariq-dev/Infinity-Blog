@@ -37,8 +37,8 @@ module Authors
     def update
       respond_to do |format|
         if @post.update(post_params)
-          format.html { redirect_to edit_post_path(@post), notice: 'Post was successfully created.' }
-          format.json { render :show, status: :created, location: @post }
+          format.html { redirect_to edit_post_path(@post), notice: 'Post successfully updated.' }
+          format.json { render :show, status: :updated, location: @post }
         else
           format.html { render :edit, status: :unprocessable_entity }
           format.json { render json: @post.errors, status: :unprocessable_entity }

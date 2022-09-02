@@ -1,7 +1,7 @@
 <% if current_author.id != post.author_id %>
   <% like = current_author.likes.find_by(post: post) %>
   <% if like.nil? %>
-    <%= button_to "♡", likes_path, params: {like: {post_id: post.id }}, method: :post, class:"btn btn-primary"%>
+    <%= button_to "♡", likes_path, params: {like: {post_id: post.id }}, method: :post, remote: true, class:"btn btn-primary"%>
   <%else%>
     <%= button_to "🤍", like_path(like), method: :delete, class:"btn btn-secondary"%>
   <% end %>

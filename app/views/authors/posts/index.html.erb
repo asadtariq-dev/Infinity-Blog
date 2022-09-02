@@ -1,18 +1,4 @@
-<small class="d-flex justify-content-between mb-2">
-  <span></span>
-  <span class="d-flex ">
-signed in as <%= current_author.first_name%> <%= current_author.last_name%>
-  </span>
-</small>
-<h4 class="d-flex justify-content-between mb-4">
-  <span>Profile</span>
-  <span class="d-flex ">
-    <%= link_to  "Home", root_path, class:"btn btn-primary mb-3 mr-2" %>
-    <%= link_to  "New Post", new_post_path, class:"btn btn-primary mb-3 mr-2" %>
-    <%= button_to "Edit Profile", edit_author_registration_path, method: :get, class: "btn btn-primary mb-3 mr-2" %>
-    <%= button_to "Sign Out", destroy_author_session_path, method: :delete, class: "btn btn-danger mb-3" %>
-  </span>
-</h4>
+<%= render 'shared/navbar' %>
 <% @posts.each do |post| %>
   <%= link_to edit_post_path(post), class: 'text-decoration-none' do %>
     <div class="card mb-3 post-card">
