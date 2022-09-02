@@ -47,7 +47,6 @@ gem 'devise'
 gem "sassc-rails"
 gem 'sass-rails'
 gem 'webpacker', '~> 3.5'
-gem 'rails_admin', '~> 3.0'
 gem 'activestorage-cloudinary-service'
 gem 'cloudinary'
 gem 'simple_form'
