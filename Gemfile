@@ -46,7 +46,6 @@ gem 'devise'
 # Use Sass to process CSS
 gem "sassc-rails"
 gem 'sass-rails'
-gem 'webpacker', '~> 3.5'
 gem 'activestorage-cloudinary-service'
 gem 'cloudinary'
 gem 'simple_form'
