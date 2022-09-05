@@ -18,6 +18,10 @@ class Post < ApplicationRecord
     where(published: true)
   }
 
+  scope :pending, lambda { |post_id|
+    find(post_id).pending?
+  }
+
   scope :most_recent_posts, lambda {
     order(published_at: :desc)
   }

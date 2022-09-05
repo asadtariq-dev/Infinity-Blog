@@ -1,6 +1,6 @@
 class ModeratorsController < ApplicationController
   def index
-    @unapproved_posts = Post.where(pending: true).order(created_at: :desc)
+    @unapproved_posts = Post.pending.order(created_at: :desc)
     @reported_posts = Post.joins(:reports).distinct.order(id: :desc)
   end
 
