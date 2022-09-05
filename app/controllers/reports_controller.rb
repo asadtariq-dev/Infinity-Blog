@@ -2,18 +2,27 @@ class ReportsController < ApplicationController
   def create
     @report = current_author.reports.new(report_params)
 
-    flash[:notice] = @report.errors.full_messages.to_sentence unless @report.save
-
-    redirect_to @report.post if @report.comment.nil?
-    redirect_to @report.comment if @report.post.nil?
+    if @report.save
+      redirect_to @report.post, notice: 'Report Submitted' if @report.comment.nil?
+      redirect_to @report.comment, notice: 'Report Submitted' if @report.post.nil?
+    else
+      flash[:notice] = @report.errors.full_messages.to_sentence
+      redirect_to @report.post, alert: @report.errors.full_messages.to_sentence if @report.comment.nil?
+      redirect_to @report.comment, alert: @report.errors.full_messages.to_sentence if @report.post.nil?
+    end
   end
 
   def destroy
     @report = current_author.reports.find(params[:id])
 
-    @report.destroy
-    redirect_to @report.post if @report.comment.nil?
-    redirect_to @report.comment if @report.post.nil?
+    if @report.destroy
+      redirect_to @report.post, alert: 'Report Cancelled' if @report.comment.nil?
+      redirect_to @report.comment, alert: 'Report Cancelled' if @report.post.nil?
+    else
+      flash[:notice] = @report.errors.full_messages.to_sentence
+      redirect_to @report.post, alert: @report.errors.full_messages.to_sentence if @report.comment.nil?
+      redirect_to @report.comment, alert: @report.errors.full_messages.to_sentence if @report.post.nil?
+    end
   end
 
   private
