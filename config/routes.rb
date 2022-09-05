@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   devise_for :authors
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root to: 'readers/home#index'
 
   get '/blog/:id' => 'readers/posts#show', as: :blog_post
   get '/author/:id' => 'authors#show', as: :author_profile
-
+ß
   resources :moderators do
     member do
       patch :publish
@@ -33,6 +32,5 @@ Rails.application.routes.draw do
     end
   end
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  get '*path', to: 'application#routing_error'
 end
