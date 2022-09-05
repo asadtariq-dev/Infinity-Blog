@@ -1,15 +1,11 @@
 class ModeratorsController < ApplicationController
+  before_action :set_post, only: %i[show publish]
   def index
     @unapproved_posts = Post.pending.order(created_at: :desc)
     @reported_posts = Post.joins(:reports).distinct.order(id: :desc)
   end
 
-  def show
-    @post = Post.find(params[:id])
-  end
-
   def publish
-    @post = Post.find(params[:id])
     if @post.published?
       @post.update_attribute(:published, false)
       @post.update_attribute(:published_at, nil)
@@ -25,6 +21,10 @@ class ModeratorsController < ApplicationController
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
   def post_params
     params.require(:post).permit(:published, :published_at)
