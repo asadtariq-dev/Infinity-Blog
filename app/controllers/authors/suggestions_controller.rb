@@ -2,9 +2,12 @@ module Authors
   class SuggestionsController < AuthorsController
     def create
       @suggestion = current_author.suggestions.new(suggestion_params)
-      flash[:notice] = @suggestion.errors.full_messages.to_sentence unless @suggestion.save
 
-      redirect_to blog_post_path(params[:post_id])
+      if @suggestion.save
+        redirect_to blog_post_path(params[:post_id]), notice:  'Suggestion successfully posted'
+      else
+        redirect_to blog_post_path(params[:post_id]), notice:  @suggestion.errors.full_messages.to_sentence
+      end
     end
 
     private
