@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
     render file: 'public/ß404.html', status: :not_found, layout: false
   end
-ß
+
   protected
 
   def configure_permitted_parameters
