@@ -95,8 +95,8 @@ Rails.application.configure do
     address: 'smtp.gmail.com',
     port: 587,
     domain: 'heruko.com',
-    user_name: Rails.application.credentials[:mailer][:username],
-    password: Rails.application.credentials[:mailer][:password],
+    user_name: Rails.application.credentials[:production][:mailer][:username],
+    password: Rails.application.credentials[:production][:mailer][:password],
     authentication: 'plain',
     enable_starttls_auto: true
   }
