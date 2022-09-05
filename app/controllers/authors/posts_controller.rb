@@ -16,9 +16,6 @@ module Authors
       @post = current_author.posts.build
     end
 
-    # GET /posts/1/edit
-    def edit; end
-
     # POST /posts or /posts.json
     def create
       @post = current_author.posts.build(post_params)
@@ -68,7 +65,11 @@ module Authors
 
     # DELETE /posts/1 or /posts/1.json
     def destroy
-      redirect_to posts_path if @post.destroy
+      if @post.destroy
+        redirect_to posts_path, notice: 'Post Deleted Successfully'
+      else
+        redirect_to post_path(params[:post_id]), notice: @post.errors.full_messages.to_sentence
+      end
     end
 
     private
