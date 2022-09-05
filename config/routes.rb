@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get '/blog/:id' => 'readers/posts#show', as: :blog_post
   get '/author/:id' => 'authors#show', as: :author_profile
-ß
+
   resources :moderators do
     member do
       patch :publish
