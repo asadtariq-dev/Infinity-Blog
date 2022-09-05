@@ -2,7 +2,9 @@
   <% posts.each do |post| %>
     <div class="col-md6 col-lg-4">
       <div class="card post-card mb-4">
-        <div class="header-image rounded-top" style="background-image: url(<%= url_for(post.header_image) %>)"></div>
+        <div class="header-image rounded-top">
+          <%= cl_image_tag(post.header_image.key, width: '100%', height: '100%')%>
+        </div>
         <div class="card-body rounded-bottom pt-2 d-flex flex-column">
           <h5 class="card-title"><%= post.title %></h5>
           <p class="card-text"> <%= truncate(post.description, length: 200) %></p>

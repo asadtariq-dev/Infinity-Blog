@@ -1,7 +1,9 @@
 <div class="card mb-5">
   <div class="card-body rounded">
     <div class="card blog-card border-0">
-      <div class="header-image rounded-top" style="background-image: url(<%= url_for(post.header_image) %>)"></div>
+      <div class="header-image rounded-top">
+        <%= cl_image_tag(post.header_image.key, width: '100%', height: '100%')%>
+      </div>
     </div>
     <div class="card-header">
       <h1 class="card-title"><%= post.title%></h1>

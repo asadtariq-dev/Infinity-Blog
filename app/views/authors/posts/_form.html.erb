@@ -14,7 +14,7 @@
     <div class="mt-1">
       <% if post.header_image.present? %>
         <small>Selected Image</small>
-        <%= image_tag(post.header_image, width: '100%')%>
+        <%= cl_image_tag(post.header_image.key, width: '100%')%>
       <%end%>
     </div>
   </div>
