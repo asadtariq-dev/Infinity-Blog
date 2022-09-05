@@ -18,8 +18,8 @@ class Post < ApplicationRecord
     where(published: true)
   }
 
-  scope :pending, lambda { |post_id|
-    find(post_id).pending?
+  scope :pending, lambda {
+    where(pending: true)
   }
 
   scope :most_recent_posts, lambda {
