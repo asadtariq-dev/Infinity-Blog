@@ -12,7 +12,7 @@
       <div class="row rounded">
         <div class="col">
           <div class="card-body rounded">
-            <%= render post.comments.where(parent_id: nil).includes(:author).order(id: :desc) %>
+            <%= render post.comments.is_comment.order(id: :desc) %>
             <div class="mt-3 mb-3">
               <%= render partial: 'readers/comments/form', locals: {post: post, parent: nil} %>
             </div>
@@ -24,7 +24,7 @@
       <div class="row g-0 rounded shadow-sm">
         <div class="col">
           <div class="card-body rounded">
-           <%= render 'shared/suggestion', post: post %>
+            <%= render 'shared/suggestion', post: post %>
           </div>
         </div>
       </div>

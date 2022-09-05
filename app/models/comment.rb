@@ -7,4 +7,8 @@ class Comment < ApplicationRecord
   has_many :reports, dependent: :destroy
 
   validates :content, presence: true
+
+  scope :is_comment, lambda {
+    where(parent_id: nil).includes(:author)
+  }
 end
