@@ -1,0 +1,4 @@
+<%= render 'shared/navbar', locals: {home: true} %>
+<% @suggestions.each do |suggestion| %>
+  <%= render 'suggestion', suggestion: suggestion %>
+<% end %>
