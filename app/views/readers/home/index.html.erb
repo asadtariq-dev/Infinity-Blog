@@ -4,3 +4,7 @@
 <%else%>
   <%= render 'shared/empty' %>
 <% end %>
+<% if @comments.any? %>
+  <h4>Recent Comments</h4>
+  <%= render 'shared/comments_list', comments: @comments%>
+<% end %>
