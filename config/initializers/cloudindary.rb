@@ -1,6 +1,6 @@
 Cloudinary.config do |config|
-  config.cloud_name = 'devsinc-cloud'
-  config.api_key = '784712982576239'
-  config.api_secret = 'KuWuP6FZHgkc0sAAmwJ1qp9wWh8'
+  config.cloud_name = Rails.application.credentials.dig(:development, :cloudinary, :cloud_name)
+  config.api_key = Rails.application.credentials.dig(:development, :cloudinary, :api_key)
+  config.api_secret = Rails.application.credentials.dig(:development, :cloudinary, :api_secret)
   config.secure = true
 end
