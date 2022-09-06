@@ -66,7 +66,7 @@ module Authors
     # DELETE /posts/1 or /posts/1.json
     def destroy
       if @post.destroy
-        redirect_to posts_path, notice: 'Post Deleted Successfully'
+        redirect_to author_profile_path(current_author), notice: 'Post Deleted Successfully'
       else
         redirect_to post_path(params[:post_id]), notice: @post.errors.full_messages.to_sentence
       end
