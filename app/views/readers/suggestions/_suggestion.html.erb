@@ -19,7 +19,7 @@
       <span class="d-flex">
         <% if suggestion.parent_id.nil? %>
           <%if current_author.id == @post.author_id%>
-            <%= button_to "Accept", "#", params: {like: {suggestion_id: suggestion.id }}, method: :post, class:"btn btn-success btn-sm mr-2" %>
+            <%= link_to "Accept", edit_post_path(@post), class:"btn btn-success btn-sm mr-2" %>
           <%end%>
           <small class="comment-form-display mr-2 height-0 btn btn-primary btn-sm">
             <a href="#" class="text-decoration-none text-white">Reply</a>
@@ -32,7 +32,7 @@
       <span>
         <% if suggestion.parent_id.nil? %>
           <% if current_author.id == @post.author_id %>
-            <%= button_to "Reject", "#", params: {report: {suggestion_id: suggestion.id }}, method: :post, class:"btn btn-dark btn-sm text-danger"%>
+            <%= button_to "Reject", post_suggestion_path(suggestion), params: {suggestion: {suggestion_id: suggestion.id }}, method: :delete, class:"btn btn-dark btn-sm text-danger"%>
           <%end%>
         <%end%>
         <span>
