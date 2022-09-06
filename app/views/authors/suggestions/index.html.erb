@@ -1,4 +1,8 @@
 <%= render 'shared/navbar', locals: {home: true} %>
-<% @suggestions.each do |suggestion| %>
-  <%= render 'suggestion', suggestion: suggestion %>
+<% if @suggestions.present? %>
+  <% @suggestions.each do |suggestion| %>
+    <%= render 'suggestion', suggestion: suggestion %>
+  <% end %>
+<% else %>
+  <%= render 'empty'%>
 <% end %>
