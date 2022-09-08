@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+  add_flash_types :danger, :success
+
   protected
 
   def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
