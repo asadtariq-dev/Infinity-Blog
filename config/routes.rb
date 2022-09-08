@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :authors
@@ -5,7 +7,7 @@ Rails.application.routes.draw do
 
   get '/blog/:id' => 'readers/posts#show', as: :blog_post
   get '/author/:id' => 'authors#show', as: :author_profile
-  get '/author/:id/suggestions' => "authors/suggestions#index", as: :author_suggestions
+  get '/author/:id/suggestions' => 'authors/suggestions#index', as: :author_suggestions
 
   resources :moderators do
     member do

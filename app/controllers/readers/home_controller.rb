@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Readers
   class HomeController < ReadersController
     def index

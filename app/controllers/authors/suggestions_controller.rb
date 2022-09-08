@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authors
   class SuggestionsController < AuthorsController
     # before_action :set_suggestion, only: %i[destroy]
@@ -16,13 +18,11 @@ module Authors
       end
     end
 
-
-
-      def destroy
-        puts "Suggestionnnnnnnnnnnnnnnn\n\n\n\n\n\n\n\n\n\n\n\n"
-        @suggestion = Suggestion.find(params[:id])
-        @suggestion.destroy
-        redirect_to root_path, status: :see_other
+    def destroy
+      puts "Suggestionnnnnnnnnnnnnnnn\n\n\n\n\n\n\n\n\n\n\n\n"
+      @suggestion = Suggestion.find(params[:id])
+      @suggestion.destroy
+      redirect_to root_path, status: :see_other
       # end
       # binding.pry
       # if @suggestion.destroy

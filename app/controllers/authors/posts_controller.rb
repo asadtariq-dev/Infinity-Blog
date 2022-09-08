@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authors
   class PostsController < AuthorsController
     before_action :set_post, only: %i[show edit update destroy submit]

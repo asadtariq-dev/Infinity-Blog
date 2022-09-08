@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authors
   class CommentsController < AuthorsController
     def create

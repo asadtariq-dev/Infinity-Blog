@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Author < ApplicationRecord
   validates :email, uniqueness: true
   devise :database_authenticatable, :registerable,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ModeratorsController < ApplicationController
   before_action :set_post, only: %i[show publish]
   def index
