@@ -3,7 +3,6 @@
 class Comment < ApplicationRecord
   validates :content, :post_id, :author_id, presence: true
   validates_length_of :content, within: 1..100
-  validates :parent_id, absence: true
 
   belongs_to :post
   belongs_to :author
