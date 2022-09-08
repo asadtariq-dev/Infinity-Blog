@@ -9,26 +9,15 @@ class Post < ApplicationRecord
   has_many :reports, dependent: :destroy
   has_many :suggestions, dependent: :destroy
 
-  validates :title, :description, :header_image, presence: true
-  validates_length_of :description, within: 5..200
+  validates :title, :description, :content, :header_image, :author_id, presence: true
+  validates_length_of :title, within: 5..30
+  validates_length_of :description, within: 5..100
+  validates_length_of :content, within: 10..2000
 
-  scope :published?, lambda { |post_id|
-    find(post_id).published?
-  }
+  scope :published?, ->(post_id) { find(post_id).published? }
+  scope :published, -> { where(published: true) }
+  scope :pending, -> { where(pending: true) }
+  scope :most_recent_posts, -> { order(published_at: :desc) }
+  scope :delete_reports, ->(post_id) { find(post_id).reports.destroy_all }
 
-  scope :published, lambda {
-    where(published: true)
-  }
-
-  scope :pending, lambda {
-    where(pending: true)
-  }
-
-  scope :most_recent_posts, lambda {
-    order(published_at: :desc)
-  }
-
-  scope :delete_reports, lambda { |post_id|
-    find(post_id).reports.destroy_all
-  }
 end
