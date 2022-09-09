@@ -5,6 +5,7 @@ class ModeratorsController < ApplicationController
   def index
     @unapproved_posts = Post.pending.order(created_at: :desc)
     @reported_posts = Post.joins(:reports).distinct.order(id: :desc)
+    @reported_comments = Comment.joins(:reports).distinct.order(id: :desc)
   end
 
   def publish

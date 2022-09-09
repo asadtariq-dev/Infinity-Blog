@@ -1,10 +1,8 @@
 <h4 class="d-flex justify-content-center mb-4">
   <span>
-Moderator Dashboard
+    Moderator Dashboard
   </span>
-
 </h4>
-
 <div class="row">
   <div class="col-md-6">
     <div class="card border-0">
@@ -18,7 +16,6 @@ Moderator Dashboard
           <%= render partial: "empty" %>
         <% end %>
       </div>
-
     </div>
   </div>
   <div class="col-md-6">
@@ -36,3 +33,10 @@ Moderator Dashboard
     </div>
   </div>
 </div>
+<div class="card-header text-center">
+  Reported Comments
+</div>
+<% if @reported_comments.present? %>
+
+<%= render 'shared/comments_list', comments: @reported_comments%>
+<% end %>
