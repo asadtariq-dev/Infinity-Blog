@@ -17,9 +17,11 @@
     </div>
     <div class="mb-1 d-flex justify-content-between text-center">
       <span class="d-flex">
-        <%= render 'shared/comment_like', comment: comment %>
+        <small class="mr-2">
+          <%= render 'likes/button', likeable: comment %>
+          </small>
         <% if comment.parent_id.nil? %>
-          <small class="comment-form-display mr-2 height-0 btn btn-primary btn-sm">
+          <small class="comment-form-display mr-2 height-0 btn btn-primary">
             <a href="#" class="text-decoration-none text-white">Reply</a>
           </small>
           <div class="comment-form">
@@ -28,7 +30,7 @@
         <% end %>
       </span>
       <span>
-        <%= render 'shared/report', locals: {comment: comment, post: nil} %>
+         <%= render 'reports/button', reportable: comment %>
         <span>
         </div>
         <div class="mb-6 ">

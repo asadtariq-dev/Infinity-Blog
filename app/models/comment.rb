@@ -8,10 +8,8 @@ class Comment < ApplicationRecord
   belongs_to :author
   belongs_to :parent, class_name: 'Comment', optional: true
   has_many :comments, foreign_key: :parent_id, dependent: :destroy
-  has_many :likes, dependent: :destroy
-  has_many :reports, dependent: :destroy
+  has_many :likes, as: :likeable, dependent: :destroy
+  has_many :reports, as: :reportable, dependent: :destroy
 
-  scope :is_comment, lambda {
-    where(parent_id: nil).includes(:author)
-  }
+  scope :is_comment, -> { where(parent_id: nil).includes(:author) }
 end

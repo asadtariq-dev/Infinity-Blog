@@ -1,0 +1,18 @@
+
+  <% report = current_author.reports.find_by(reportable: reportable) %>
+  <% if report.nil? %>
+    <form action="/reports" method="post" remote=true>
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="report[reportable_id]" value="<%= reportable.id %>">
+      <input type="hidden" name="report[reportable_type]" value="<%= reportable.class.to_s%>">
+      <input type="submit" value="Report" class="btn btn-danger btn-xs">
+    </form>
+    <%# button_to "♡", reports_path, params: {report: {reportable_id: post.id }}, method: :post, remote: true, class:"btn btn-primary"%>
+  <%else%>
+    <form action="<%= report_path(report)%>" method="post" remote=true>
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="Cancel Report" class="btn btn-secondary btn-small">
+    </form>
+<% end %>
+<%= pluralize(reportable.reports.count, "report")%>

@@ -25,10 +25,10 @@
     <div class="card-header rounded-bottom text-center">
       <small class="d-flex justify-content-between">
         <span>
-          <%= render 'shared/post_like', post: @post %>
+          <%= render 'likes/button', likeable: @post %>
         </span>
         <span class="text-danger">
-           <%= render 'shared/report', locals: {comment: nil, post: @post} %>
+          <%= render 'reports/button', reportable: @post %>
         </span>
       </small>
     </div>

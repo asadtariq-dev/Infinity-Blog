@@ -5,9 +5,9 @@ class Post < ApplicationRecord
   belongs_to :author
   has_rich_text :content
   has_one_attached :header_image
-  has_many :likes, dependent: :destroy
+  has_many :likes, as: :likeable, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :reports, dependent: :destroy
+  has_many :reports, as: :reportable, dependent: :destroy
   has_many :suggestions, dependent: :destroy
 
   validates :title, :description, :header_image, :author_id, presence: true

@@ -20,10 +20,6 @@ Rails.application.routes.draw do
   resources :likes, only: %i[create destroy]
   resources :reports, only: %i[create destroy]
 
-  resources :comments do
-    resources :likes, only: %i[create destroy]
-  end
-
   scope module: 'authors' do
     resources :posts do
       resources :comments, only: %i[create]

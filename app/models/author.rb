@@ -2,7 +2,6 @@
 
 class Author < ApplicationRecord
   before_save { self.email = email.downcase }
-  # before_destroy :delete_author_belongings
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
@@ -18,9 +17,4 @@ class Author < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :suggestions, dependent: :destroy
   has_many :reports, dependent: :destroy
-
-  def delete_author_belongings
-    puts 'Hello'
-    puts comments.all
-  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_09_143554) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_09_224201) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,14 +90,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_143554) do
 
   create_table "likes", force: :cascade do |t|
     t.bigint "author_id", null: false
-    t.bigint "post_id"
+    t.bigint "likeable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "comment_id"
-    t.index ["author_id", "post_id"], name: "index_likes_on_author_id_and_post_id", unique: true
+    t.string "likeable_type"
+    t.index ["author_id", "likeable_id", "likeable_type"], name: "index_likes_on_author_id_and_likeable_id_and_likeable_type", unique: true
     t.index ["author_id"], name: "index_likes_on_author_id"
-    t.index ["comment_id"], name: "index_likes_on_comment_id"
-    t.index ["post_id"], name: "index_likes_on_post_id"
+    t.index ["likeable_id", "likeable_type"], name: "index_likes_on_likeable_id_and_likeable_type"
+    t.index ["likeable_id"], name: "index_likes_on_likeable_id"
   end
 
   create_table "moderators", force: :cascade do |t|
@@ -122,14 +122,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_143554) do
 
   create_table "reports", force: :cascade do |t|
     t.bigint "author_id", null: false
-    t.bigint "post_id"
-    t.bigint "comment_id"
+    t.bigint "reportable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["author_id", "post_id", "comment_id"], name: "index_reports_on_author_id_and_post_id_and_comment_id", unique: true
+    t.string "reportable_type"
+    t.index ["author_id", "reportable_id", "reportable_type"], name: "author_and_reportable_index", unique: true
     t.index ["author_id"], name: "index_reports_on_author_id"
-    t.index ["comment_id"], name: "index_reports_on_comment_id"
-    t.index ["post_id"], name: "index_reports_on_post_id"
+    t.index ["reportable_id", "reportable_type"], name: "index_reports_on_reportable_id_and_reportable_type"
+    t.index ["reportable_id"], name: "index_reports_on_reportable_id"
   end
 
   create_table "suggestions", force: :cascade do |t|
@@ -148,12 +148,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_143554) do
   add_foreign_key "comments", "authors"
   add_foreign_key "comments", "posts"
   add_foreign_key "likes", "authors"
-  add_foreign_key "likes", "comments"
-  add_foreign_key "likes", "posts"
   add_foreign_key "posts", "authors"
   add_foreign_key "reports", "authors"
-  add_foreign_key "reports", "comments"
-  add_foreign_key "reports", "posts"
   add_foreign_key "suggestions", "authors"
   add_foreign_key "suggestions", "posts"
 end

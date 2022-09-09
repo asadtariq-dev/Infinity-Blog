@@ -1,0 +1,21 @@
+
+  <% like = current_author.likes.find_by(likeable: likeable) %>
+  <% if like.nil? %>
+    <form action="/likes" method="post" remote=true>
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="like[likeable_id]" value="<%= likeable.id %>">
+      <input type="hidden" name="like[likeable_type]" value="<%= likeable.class.to_s%>">
+      <input type="submit" value="♡" class="btn btn-primary">
+    </form>
+    <%# button_to "♡", likes_path, params: {like: {likeable_id: post.id }}, method: :post, remote: true, class:"btn btn-primary"%>
+  <%else%>
+    <form action="<%= like_path(like)%>" method="post" remote=true>
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="🤍" class="btn btn-secondary btn-small">
+    </form>
+<% end %>
+<% if likeable.class.to_s=="Post" %>
+
+<%= pluralize(likeable.likes.count, "Like")%>
+<% end %>

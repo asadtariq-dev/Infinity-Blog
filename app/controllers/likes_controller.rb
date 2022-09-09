@@ -6,21 +6,19 @@ class LikesController < ApplicationController
 
     flash[:notice] = @like.errors.full_messages.to_sentence unless @like.save
 
-    redirect_to @like.post if @like.comment.nil?
-    redirect_to @like.comment if @like.post.nil?
+    redirect_back(fallback_location: posts_url)
   end
 
   def destroy
     @like = current_author.likes.find(params[:id])
 
     @like.destroy
-    redirect_to @like.post if @like.comment.nil?
-    redirect_to @like.comment if @like.post.nil?
+    redirect_back(fallback_location: posts_url)
   end
 
   private
 
   def like_params
-    params.require(:like).permit(:post_id, :comment_id)
+    params.require(:like).permit(:likeable_id, :likeable_type)
   end
 end
