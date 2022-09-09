@@ -11,8 +11,8 @@ class Post < ApplicationRecord
   has_many :suggestions, dependent: :destroy
 
   validates :title, :description, :header_image, :author_id, presence: true
-  validates_length_of :title, within: 5..30
-  validates_length_of :description, within: 5..100
+  validates_length_of :title, within: 5..100
+  validates_length_of :description, within: 5..200
 
   scope :published?, ->(post_id) { find(post_id).published? }
   scope :published, -> { where(published: true) }
