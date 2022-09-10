@@ -7,9 +7,7 @@ class SuggestionsController < AuthorsController
     @suggestions = current_author.suggestions.all.order(id: :desc)
   end
 
-  def edit
-    puts "==================="
-  end
+  def edit; end
 
   def create
     @suggestion = current_author.suggestions.new(suggestion_params)
