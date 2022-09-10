@@ -10,9 +10,10 @@
     <%= javascript_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="readers pb-5">
+
+  <body class="home pb-5">
     <div class="container">
-      <%= render partial: 'shared/alerts' %>
+    <%= render partial: 'shared/alerts' %>
       <%= yield %>
     </div>
   </body>

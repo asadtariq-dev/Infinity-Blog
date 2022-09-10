@@ -17,9 +17,6 @@
   </div>
   <div class="col-md-8">
     <div class="d-flex justify-content-between">
-      <div>
-        <%= link_to  "Preview", post_path, class: "btn btn-primary" %>
-      </div>
       <% if (@post.submitted_at?) && (@post.published?) %>
        <div class="mb-4"> Post is live </div>
       <%elsif (@post.pending? )%>
@@ -31,7 +28,7 @@
     <div class="card mb-5 border-0">
       <div class="card-header text-right">
         <% if @post.published? %>
-          <b>Published</b> about <%= time_ago_in_words(@post.published_at) %> ago
+          <b>Published</b> <%= time_ago_in_words(@post.published_at) %> ago
         <%else%>
           Not published yet
         <%end%>

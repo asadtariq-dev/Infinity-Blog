@@ -1,7 +1,7 @@
 <%= render 'shared/navbar', locals:{home: false} %>
 <div class="card bg-transparent rounded border-0">
   <% if current_author.posts.present? %>
-    <%= render "authors/posts/posts", posts: @posts %>
+    <%= render "posts/posts", posts: @posts %>
   <%else%>
     <%= render partial: "shared/empty" %>
   <% end %>

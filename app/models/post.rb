@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
-  # after_destroy :delete_post_belongings
   belongs_to :author
   has_rich_text :content
   has_one_attached :header_image
@@ -19,12 +18,4 @@ class Post < ApplicationRecord
   scope :pending, -> { where(pending: true) }
   scope :most_recent_posts, -> { order(published_at: :desc) }
   scope :delete_reports, ->(post_id) { find(post_id).reports.destroy_all }
-
-  def delete_post_belongings
-    puts '===========Hello==============='
-    @post.comments.destroy_all
-    @post.likes.destroy_all
-    @post.suggestions.destroy_all
-    @post.reports.destroy_all
-  end
 end
