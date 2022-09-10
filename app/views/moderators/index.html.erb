@@ -37,6 +37,7 @@
   Reported Comments
 </div>
 <% if @reported_comments.present? %>
-
-<%= render 'shared/comments_list', comments: @reported_comments%>
+  <%= render 'shared/comments_list', comments: @reported_comments%>
+<%else%>
+  <%= render partial: "empty" %>
 <% end %>
