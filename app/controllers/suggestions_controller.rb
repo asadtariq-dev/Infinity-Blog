@@ -1,34 +1,29 @@
 # frozen_string_literal: true
 
 class SuggestionsController < AuthorsController
-  # before_action :set_suggestion, only: %i[destroy]
+  before_action :set_suggestion, only: %i[edit destroy]
 
   def index
     @suggestions = current_author.suggestions.all.order(id: :desc)
+  end
+
+  def edit
+    puts "==================="
   end
 
   def create
     @suggestion = current_author.suggestions.new(suggestion_params)
 
     if @suggestion.save
-      redirect_to blog_post_path(params[:post_id]), notice:  'Suggestion successfully posted'
+      redirect_to post_path(params[:post_id]), notice:  'Suggestion successfully posted'
     else
-      redirect_to blog_post_path(params[:post_id]), notice:  @suggestion.errors.full_messages.to_sentence
+      redirect_to post_path(params[:post_id]), notice:  @suggestion.errors.full_messages.to_sentence
     end
   end
 
   def destroy
-    puts "Suggestionnnnnnnnnnnnnnnn\n\n\n\n\n\n\n\n\n\n\n\n"
-    @suggestion = Suggestion.find(params[:id])
-    @suggestion.destroy
-    redirect_to root_path, status: :see_other
-    # end
-    # binding.pry
-    # if @suggestion.destroy
-    #   redirect_to post_path(params[:post_id]), notice: 'Suggestion rejected successfully'
-    # else
-    #   redirect_to post_path(params[:post_id]), notice: @post.errors.full_messages.to_sentence
-    # end
+    flash[:notice] = 'Suggestion Deleted' if @suggestion.destroy
+    redirect_to post_path(params[:post_id]), notice: 'fdfdfdf'
   end
 
   private

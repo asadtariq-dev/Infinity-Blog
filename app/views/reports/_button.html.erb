@@ -1,4 +1,4 @@
-
+<% if current_author.id != @post.author_id %>
   <% report = current_author.reports.find_by(reportable: reportable) %>
   <% if report.nil? %>
     <form action="/reports" method="post" remote=true>
@@ -14,5 +14,6 @@
       <input type="hidden" name="_method" value="DELETE">
       <input type="submit" value="Cancel Report" class="btn btn-secondary btn-small">
     </form>
+  <% end %>
 <% end %>
 <%= pluralize(reportable.reports.count, "report")%>

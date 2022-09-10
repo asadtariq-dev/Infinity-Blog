@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :comments, only: %i[create]
-    resources :suggestions, only: %i[create destroy]
+    resources :suggestions, only: %i[create edit destroy]
     member do
       patch :submit
       put :submit

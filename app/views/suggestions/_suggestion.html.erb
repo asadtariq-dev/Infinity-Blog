@@ -25,8 +25,13 @@
             <a href="#" class="text-decoration-none text-white">Reply</a>
           </small>
           <div class="comment-form">
-            <%= render partial: 'readers/suggestions/form', locals: {post: suggestion.post, parent: suggestion} %>
+            <%= render partial: 'suggestions/form', locals: {post: suggestion.post, parent: suggestion} %>
           </div>
+          <% if current_author.id == suggestion.author_id %>
+            <small class="mr-2 height-0 btn btn-primary btn-sm">
+              <%= link_to 'Edit', edit_post_suggestion_path(suggestion), class: 'text-decoration-none text-white'%>
+            </small>
+          <% end %>
         <% end %>
       </span>
       <span>

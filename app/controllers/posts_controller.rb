@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PostsController < AuthorsController
-  before_action :set_post, only: %i[show edit update destroy submit]
+  before_action :set_post, only: %i[edit update destroy submit]
 
   def index
     @posts = current_author.posts.order(id: :desc)
