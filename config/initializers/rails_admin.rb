@@ -4,7 +4,7 @@ RailsAdmin.config do |config|
   config.asset_source = :sprockets
   RailsAdmin.config do |config|
     config.authorize_with do
-      redirect_to main_app.root_path unless current_author.admin == true
+      redirect_to main_app.root_path unless current_author.admin?
     end
   end
   ### Popular gems integration

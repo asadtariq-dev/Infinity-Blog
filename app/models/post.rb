@@ -2,7 +2,7 @@
 
 class Post < ApplicationRecord
   enum :status, %i[unpublished pending published], default: 0
-  # Ex:- :default =>''
+
   belongs_to :author
   has_rich_text :content
   has_one_attached :header_image
