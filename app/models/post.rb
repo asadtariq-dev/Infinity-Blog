@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
+  enum :status, %i[unpublished pending published], default: 0
+  # Ex:- :default =>''
   belongs_to :author
   has_rich_text :content
   has_one_attached :header_image
@@ -13,9 +15,5 @@ class Post < ApplicationRecord
   validates_length_of :title, within: 5..100
   validates_length_of :description, within: 5..200
 
-  scope :published?, ->(post_id) { find(post_id).published? }
-  scope :published, -> { where(published: true) }
-  scope :pending, -> { where(pending: true) }
-  scope :most_recent_posts, -> { order(published_at: :desc) }
   scope :delete_reports, ->(post_id) { find(post_id).reports.destroy_all }
 end

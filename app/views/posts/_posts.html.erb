@@ -15,7 +15,9 @@
           </div>
           <div class="col-md-10">
             <% if post.published? %>
-              <span class="badge badge-primary mb-3"> Published</span>
+              <span class="badge badge-success mb-3"> Published</span>
+            <%elsif post.pending?%>
+              <span class="badge badge-primary mb-3"> Pending</span>
             <%else%>
               <span class="badge badge-secondary mb-3"> Unpublished</span>
             <%end%>

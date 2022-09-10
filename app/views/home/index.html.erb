@@ -1,5 +1,5 @@
 <%= render 'shared/navbar', locals: {home: true} %>
-<% if @posts.any? %>
+<% if @posts.present? %>
   <%= render 'shared/blogs', posts: @posts %>
 <%else%>
   <%= render 'shared/empty' %>
