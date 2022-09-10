@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MakeReportPolymorphic < ActiveRecord::Migration[7.0]
   def change
     rename_column :reports, :post_id, :reportable_id
@@ -5,7 +7,8 @@ class MakeReportPolymorphic < ActiveRecord::Migration[7.0]
 
     remove_column :reports, :comment_id
 
-    add_index :reports, [:author_id, :reportable_id, :reportable_type], unique: true, name: "author_and_reportable_index"
-    add_index :reports, [:reportable_id, :reportable_type]
+    add_index :reports, %i[author_id reportable_id reportable_type], unique: true,
+                                                                     name: 'author_and_reportable_index'
+    add_index :reports, %i[reportable_id reportable_type]
   end
 end

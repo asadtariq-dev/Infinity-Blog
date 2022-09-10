@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddValidationsToComment < ActiveRecord::Migration[7.0]
   def change
     change_column :comments, :content, :text, presence: true, null: false

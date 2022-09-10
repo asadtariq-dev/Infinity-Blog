@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddValidationsToPost < ActiveRecord::Migration[7.0]
   def change
     change_column :posts, :author_id, :bigint, presence: true, null: false
