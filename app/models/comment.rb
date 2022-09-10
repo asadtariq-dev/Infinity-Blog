@@ -11,5 +11,5 @@ class Comment < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :reports, as: :reportable, dependent: :destroy
 
-  scope :is_comment, -> { where(parent_id: nil).includes(:author) }
+  scope :not_reply, -> { where(parent_id: nil) }
 end
