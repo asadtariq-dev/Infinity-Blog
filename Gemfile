@@ -47,15 +47,17 @@ gem 'bootsnap', require: false
 gem 'devise'
 # Use Sass to process CSS
 gem 'activestorage-cloudinary-service'
+gem 'bootstrap', '~> 5.2.0'
 gem 'cloudinary'
+gem 'cssbundling-rails'
+gem 'jquery-rails'
 gem 'pry'
 gem 'pry-byebug'
+gem 'pundit'
 gem 'rails_admin', '~> 3.0'
+gem 'rubocop-rails'
 gem 'sassc-rails'
 gem 'sass-rails'
-gem 'jquery-rails'
-gem 'cssbundling-rails'
-gem 'bootstrap', '~> 5.2.0'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

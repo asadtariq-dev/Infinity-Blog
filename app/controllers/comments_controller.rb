@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CommentsController < AuthorsController
+class CommentsController < ApplicationController
   def create
     @comment = current_author.comments.new(comment_params)
     flash[:notice] = if @comment.save

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class PostsController < AuthorsController
-  before_action :set_post, only: %i[edit update destroy submit]
+class PostsController < ApplicationController
+  before_action :set_post, :authorize_post, only: %i[update destroy submit]
 
   def index
     @posts = current_author.posts.order(id: :desc)
@@ -30,6 +30,10 @@ class PostsController < AuthorsController
     end
   end
 
+  def edit
+    @post = current_author.posts.find(params[:id])
+  end
+
   def update
     respond_to do |format|
       if @post.update(post_params)
@@ -52,8 +56,10 @@ class PostsController < AuthorsController
 
   def destroy
     if @post.destroy
-      redirect_to author_profile_path(current_author), notice: 'Post Deleted Successfully'
+      # binding.pry
+      redirect_to root_path, notice: 'Post Deleted Successfully'
     else
+      # binding.pry
       redirect_to post_path(params[:post_id]), notice: @post.errors.full_messages.to_sentence
     end
   end
@@ -62,6 +68,10 @@ class PostsController < AuthorsController
 
   def set_post
     @post = current_author.posts.find(params[:id])
+  end
+
+  def authorize_post
+    authorize @post
   end
 
   def post_params

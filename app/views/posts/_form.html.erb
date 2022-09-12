@@ -1,5 +1,5 @@
 <%= form_with(model: post, local: true) do |form| %>
-<%= render 'shared/errors', model: post  %>
+  <%= render 'shared/errors', model: post  %>
   <div class= 'form-group'>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title, class: 'form-control' %>

@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
   before_action :authenticate_author!
-  before_action :configure_permitted_parameters, if: :devise_controller?
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  add_flash_types :danger, :success
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   protected
 
   def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
-    render file: 'public/404.html', status: :not_found, layout: false
+    redirect_to author_profile_path(current_author), alert: 'Page Not Found'
   end
 
   def configure_permitted_parameters
@@ -20,7 +21,18 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def record_not_found
-    redirect_to author_profile_path(current_author), alert: 'Record Not Found'
+  # def record_not_found
+  #   # binding.pry
+
+  #   redirect_to author_profile_path(current_author), alert: 'Record Not Found'
+  # end
+
+  def user_not_authorized
+    flash[:alert] = 'Your are not authorized for this action'
+    redirect_to(request.referrer || root_path)
+  end
+
+  def pundit_user
+    current_author
   end
 end

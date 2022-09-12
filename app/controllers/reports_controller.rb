@@ -3,7 +3,6 @@
 class ReportsController < ApplicationController
   def create
     @report = current_author.reports.new(report_params)
-
     flash[:notice] = if @report.save
                        'Report Submitted'
                      else

@@ -4,8 +4,8 @@ class Author < ApplicationRecord
   before_save { self.email = email.downcase }
 
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable,
-  :lockable, :confirmable
+         :recoverable, :rememberable, :validatable,
+         :lockable, :confirmable
 
   enum :role, %i[author moderator admin], default: 0
   validates :first_name, :last_name, :email, :password, presence: true
