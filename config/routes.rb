@@ -15,17 +15,13 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create]
     resources :suggestions, only: %i[create edit update destroy]
     member do
-      patch :submit
-      put :submit
       get :submit
     end
   end
 
-  resources :moderators do
+  resources :moderators, only: %i[index show] do
     member do
-      patch :publish
-      put :publish
-      get :publish
+      get :publish_post
     end
   end
 

@@ -15,11 +15,16 @@
     <div class="mb-3">
       <%= comment.content%>
     </div>
+    <% if comment.image.attached? %>
+      <div class="mb-3">
+        <%= cl_image_tag(comment.image.key, width: '20%', height: '20%')%>
+      </div>
+    <% end %>
     <div class="mb-1 d-flex justify-content-between text-center">
       <span class="d-flex">
         <small class="mr-2">
           <%= render 'likes/button', likeable: comment %>
-          </small>
+        </small>
         <% if comment.parent_id.nil? %>
           <small class="comment-form-display mr-2 height-0 btn btn-primary">
             <a href="#" class="text-decoration-none text-white">Reply</a>
@@ -30,7 +35,7 @@
         <% end %>
       </span>
       <span>
-         <%= render 'reports/button', reportable: comment %>
+        <%= render 'reports/button', reportable: comment %>
         <span>
         </div>
         <div class="mb-6 ">

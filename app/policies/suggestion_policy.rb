@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SuggestionPolicy < ApplicationPolicy
   class Scope < Scope
   end

@@ -16,9 +16,9 @@
           <small class="mb-3 text-danger mt-auto">
             <strong><%= pluralize(post.reports.count, "Report")%></strong>
           </small>
-          <%= link_to "Unpublish", publish_moderator_path(post), method: :put, data: { confirm: 'Are you sure?' }, class:"btn btn-secondary mt-auto mb-3"%>
+          <%= link_to "Unpublish", publish_post_moderator_path(post), method: :put, data: { confirm: 'Are you sure?' }, class:"btn btn-secondary mt-auto mb-3"%>
         <%else%>
-          <%= link_to "Approve", publish_moderator_path(post), method: :put, class:"btn btn-success mt-auto mb-3"%>
+          <%= link_to "Approve", publish_post_moderator_path(post), method: :put, class:"btn btn-success mt-auto mb-3"%>
         <%end%>
       </div>
     </div>

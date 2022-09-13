@@ -1,8 +1,15 @@
-<form action="<%= post_comments_path(post)%>" method="post">
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<%= form_with url: post_comments_path(post), method: :post do |form| %>
   <% if !parent.nil? %>
-    <input type="hidden" name="comment[parent_id]" value="<%= parent.id %>">
+    <%= form.hidden_field :parent_id, value: "#{parent.id}"  %>
   <% end %>
-  <textarea class="form-control mb-2 bg-transparent text-white " name="comment[content]" placeholder="Type here..."></textarea>
-  <input type="submit" name="Submit" class='btn btn-sm btn-primary'>
-</form>
+  <div class= 'form-group'>
+    <%= form.label :comment%>
+    <%= form.text_area :content, class:"form-control mb-2 bg-transparent text-white", placeholder:"Type here..."%>
+  </div>
+  <div class= 'form-group'>
+    <%= form.file_field :image, accept: 'image/jpeg, image/png, image/jpg, image/webp'%>
+  </div>
+  <div>
+    <%= form.submit "Submit", class: 'btn btn-primary' %>
+  </div>
+<% end %>
