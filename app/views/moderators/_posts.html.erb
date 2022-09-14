@@ -1,14 +1,14 @@
 <% posts.each do |post| %>
-  <%= link_to moderator_path(post), class: 'text-decoration-none text-white' do %>
+  <%= link_to moderator_path(post), class: 'text-decoration-none' do %>
     <div class="card post-card mb-4">
       <div class="header-image rounded">
         <%= cl_image_tag(post.header_image.key, width: '100%', height: '100%')%>
       </div>
       <div class="card-body rounded-bottom pt-2 d-flex flex-column">
-        <h5 class="card-title"><%= post.title %></h5>
-        <p class="card-text"> <%= truncate(post.description, length: 200) %></p>
+        <h5 class="card-title text-dark"><%= post.title %></h5>
+        <p class="card-text text-secondary"> <%= truncate(post.description, length: 200) %></p>
         <div class="d-flex justify-content-between">
-          <small class="mb-3">
+          <small class="mb-3 text-secondary">
             <%= time_ago_in_words(post.created_at) %> ago
           </small>
         </div>

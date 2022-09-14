@@ -4,10 +4,6 @@ class SuggestionPolicy < ApplicationPolicy
   class Scope < Scope
   end
 
-  def index?
-    user == record[0].author
-  end
-
   def destroy?
     user.id == record.post.author_id
   end

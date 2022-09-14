@@ -11,6 +11,17 @@ class CommentsController < ApplicationController
     redirect_back(fallback_location: posts_url)
   end
 
+  def destroy
+    @comment = current_author.comments.find(params[:id])
+    authorize @comment
+    if @comment.destroy
+      redirect_back(fallback_location: posts_url)
+      flash[:alert] = 'Comment has been Deleted'
+    else
+      flash[:alert] = @comment.errors.full_messages.to_sentence
+    end
+  end
+
   private
 
   def comment_params

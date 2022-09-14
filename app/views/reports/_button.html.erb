@@ -1,4 +1,4 @@
-<% if current_author.id != reportable.author_id %>
+<% if current_author.id != reportable.author_id && !current_author.moderator? %>
   <% report = current_author.reports.find_by(reportable: reportable) %>
   <% if report.nil? %>
     <form action="/reports" method="post" remote=true>

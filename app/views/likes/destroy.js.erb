@@ -1,1 +1,2 @@
-$('#button-<%= @post.id.to_s%>').html('<%= button_to "♡", likes_path, params: {like: {likeable_id: likeable.id, likeable_type: likeable.class.to_s }}, method: :post, remote: true, class:"btn btn-primary btn-small" %>')
+$('#like-btn-<%= @post.id.to_s%>').
+  html('<%= button_to "♡", likes_path, method: :post, remote: true, class:"btn btn-primary btn-small" %>')

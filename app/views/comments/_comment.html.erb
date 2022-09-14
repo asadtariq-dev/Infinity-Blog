@@ -20,13 +20,13 @@
         <%= cl_image_tag(comment.image.key, width: '20%', height: '20%')%>
       </div>
     <% end %>
-    <div class="mb-1 d-flex justify-content-between text-center">
-      <span class="d-flex">
+    <div class="mb-1 d-flex justify-content-between text-center btn-sm">
+      <span class="d-flex mb-0">
         <small class="mr-2">
           <%= render 'likes/button', likeable: comment %>
         </small>
         <% if comment.parent_id.nil? %>
-          <small class="comment-form-display mr-2 height-0 btn btn-primary">
+          <small class="comment-form-display mr-2 btn btn-primary btn-sm">
             <a href="#" class="text-decoration-none text-white">Reply</a>
           </small>
           <div class="comment-form">
@@ -35,6 +35,9 @@
         <% end %>
       </span>
       <span>
+      <% if current_author == comment.author || current_author.moderator? %>
+        <%= button_to "Delete", post_comment_path(comment.post_id, comment), method: :delete, remote: true, class:"btn btn-secondary btn-sm" %>
+      <% end %>
         <%= render 'reports/button', reportable: comment %>
         <span>
         </div>

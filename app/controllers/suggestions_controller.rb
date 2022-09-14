@@ -5,7 +5,6 @@ class SuggestionsController < ApplicationController
 
   def index
     @suggestions = current_author.suggestions.all.order(id: :desc)
-    authorize @suggestions
   end
 
   def update

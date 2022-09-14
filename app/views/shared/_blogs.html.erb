@@ -1,8 +1,8 @@
 <div class="row">
   <% posts.each do |post| %>
     <div class="col-md6 col-lg-4">
-      <div class="card post-card mb-4">
-        <div class="header-image rounded-top">
+      <div class="card mb-4">
+        <div class="rounded-top" style="width: 100%; height: 250px; background-size: cover; background-position: center;">
           <%= cl_image_tag(post.header_image.key, width: '100%', height: '100%')%>
         </div>
         <div class="card-body rounded-bottom pt-2 d-flex flex-column">

@@ -2,16 +2,24 @@
 
 class LikesController < ApplicationController
   def create
-    # binding.pry
     @like = current_author.likes.new(like_params)
-    flash[:notice] = @like.errors.full_messages.to_sentence unless @like.save
-    respond_to :js
+    @post = Post.find(@like.likeable_id)
+    respond_to do |format|
+      if @like.save
+        format.js { render html: @post, status: :created, location: @post }
+      else
+        format.js { render html: @post.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
     @like = current_author.likes.find(params[:id])
-    @like.destroy
-    respond_to :js
+    if @like.destroy
+      respond_to :js
+    else
+      flash[:alert] = @like.errors.full_messages.to_sentence
+    end
   end
 
   private

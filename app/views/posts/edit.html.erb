@@ -1,7 +1,7 @@
 <%= render 'shared/navbar', locals: {home: true} %>
 <div class="row">
   <div class="col-md-4">
-    <%= link_to "Back", :back, class:"btn btn-secondary mb-3"%>
+    <%= link_to "Back", root_path, class:"btn btn-secondary mb-3"%>
     <div class="card border-0">
       <div class="card-header">
         Editing Post
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="col-md-8">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex text-white justify-content-between">
       <% if @post.published? %>
         <div class="mb-4"> Post is live </div>
       <%elsif @post.pending? %>

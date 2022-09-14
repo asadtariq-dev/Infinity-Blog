@@ -55,13 +55,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if @post.destroy
-      # binding.pry
-      redirect_to root_path, notice: 'Post Deleted Successfully'
-    else
-      # binding.pry
-      redirect_to post_path(params[:post_id]), notice: @post.errors.full_messages.to_sentence
+          # redirect_to post_path(params[:post_id]), notice: @post.errors.full_messages.to_sentence
     end
+    redirect_to '/admin', notice: 'Post Deleted Successfully'
   end
 
   private

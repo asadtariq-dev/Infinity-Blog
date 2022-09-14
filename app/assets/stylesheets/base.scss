@@ -1,25 +1,24 @@
-$primary-color: mediumaquamarine;
-$primary-hover: aquamarine;
-$secondary-color: salmon;
-$secondary-hover: rgba(127, 2, 253, 0.524);
 $bg-color: #0d1117;
 
-.authors {
+html{
   height: 100%;
   background-color: $bg-color;
   margin: 0;
   padding: 0;
   margin-top: 3%;
-  // font-family: 'Courier New', Courier, monospace;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.874);
-  .card-header{
-    background-color: $bg-color
+}
+
+ .card-header{
+    background-color: $bg-color;
+
+    .card-body{
+      background-color: #1c2637e0 !important;
+      color: rgba(201, 16, 16, 0.874) !important;
+    }
   }
-  .card-body{
-    background-color: #1c2637e0;
-    color: rgba(255, 255, 255, 0.874);
-  }
+
   .card-footer{
     background-color: #1c2637b5;;
   }
@@ -43,4 +42,3 @@ $bg-color: #0d1117;
       background-position: center;
     }
   }
-}

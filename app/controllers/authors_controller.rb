@@ -19,7 +19,7 @@ class AuthorsController < ApplicationController
   end
 
   def check_url
-    return if current_author.id == params[:id].to_i
+    return if current_author.id.to_s == params[:id]
 
     redirect_to author_profile_path(current_author)
   end

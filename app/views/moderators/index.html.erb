@@ -1,4 +1,5 @@
-<h4 class="d-flex justify-content-center mb-4">
+<%= render 'shared/navbar', locals: {moderator: true} %>
+<h4 class="d-flex text-white justify-content-center mb-4">
   <span>
     Moderator Dashboard
   </span>
@@ -33,7 +34,7 @@
     </div>
   </div>
 </div>
-<div class="card-header text-center">
+<div class="card-header text-white text-center">
   Reported Comments
 </div>
 <% if @reported_comments.present? %>

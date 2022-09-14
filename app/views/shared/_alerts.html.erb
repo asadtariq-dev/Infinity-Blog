@@ -1,6 +1,10 @@
-<% if notice %>
-  <p class="alert alert-success mt-2"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger mt-2"><%= alert %></p>
-<% end %>
+<span class="success_msgs"> <% if notice %>
+    <p class="alert alert-success">
+      <%= notice %>
+    </p>
+ <% end %> </span>
+<span class="error_msgs"> <% if alert %>
+    <p class="alert alert-danger">
+      <%= alert %>
+    </p>
+ <% end %> </span>

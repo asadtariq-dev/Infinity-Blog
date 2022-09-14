@@ -12,16 +12,18 @@ Rails.application.routes.draw do
   resources :suggestions, only: %i[index], as: :author_suggestions
 
   resources :posts do
-    resources :comments, only: %i[create]
+    resources :comments, only: %i[create destroy]
     resources :suggestions, only: %i[create edit update destroy]
     member do
       get :submit
     end
   end
 
-  resources :moderators, only: %i[index show] do
-    member do
-      get :publish_post
+  authenticate :author, ->(a) { a.moderator? } do
+    resources :moderators, only: %i[index show] do
+      member do
+        get :publish_post
+      end
     end
   end
 
