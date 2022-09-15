@@ -47,7 +47,6 @@ class PostsController < ApplicationController
   def submit
     if @post.pending?
       @post.unpublished!
-      @post.update(published_at: nil)
     else
       @post.pending!
     end
