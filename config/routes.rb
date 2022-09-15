@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create destroy]
     resources :suggestions, only: %i[create edit update destroy]
     member do
-      get :submit
+      # get :submit
       put :submit
     end
   end
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :moderators, only: %i[index show] do
       member do
         get :publish_post
+        put :publish_post
       end
     end
   end
