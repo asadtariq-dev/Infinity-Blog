@@ -16,10 +16,11 @@ Rails.application.routes.draw do
     resources :suggestions, only: %i[create edit update destroy]
     member do
       get :submit
+      put :submit
     end
   end
 
-  authenticate :author, ->(a) { a.moderator? } do
+  authenticate :author, ->(user) { user.moderator? } do
     resources :moderators, only: %i[index show] do
       member do
         get :publish_post
