@@ -30,4 +30,23 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  page_not_found: "Page Not Found"
+  record_not_found: "Record Not Found"
+  not_authorized: "Your are not authorized for this action"
+  account_deleted: "Account Deleted"
+  comment_posted: "Comment Posted"
+  comment_deleted: "Comment has been Deleted"
+  post_created: "Post has been created"
+  post_updated: "Post has been updated"
+  post_unpublished: "Post has been unpublished"
+  post_published: "Post has been published"
+  post_deleted: "Post has been Deleted"
+  suggestion_created: "Suggestion successfully created"
+  suggestion_updated: "Suggestion successfully updated"
+  suggestion_posted: "Suggestion successfully posted"
+  suggestion_rejected: "Suggestion rejected and deleted"
+  invalid_email: "Invalid email"
+  no_access: "NO ACCESS: Only admin can access admin dashboard"
+
+
+

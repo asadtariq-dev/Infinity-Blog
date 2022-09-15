@@ -21,12 +21,12 @@
       </div>
     <% end %>
     <div class="mb-1 d-flex justify-content-between text-center btn-sm">
-      <span class="d-flex mb-0">
-        <small class="mr-2">
+      <span class="d-flex">
+        <small class="mr-2 ">
           <%= render 'likes/button', likeable: comment %>
         </small>
         <% if comment.parent_id.nil? %>
-          <small class="comment-form-display mr-2 btn btn-primary btn-sm">
+          <small class="comment-form-display mr-2 btn btn-primary mt-auto mb-5 btn-sm">
             <a href="#" class="text-decoration-none text-white">Reply</a>
           </small>
           <div class="comment-form">

@@ -11,9 +11,9 @@ class Post < ApplicationRecord
   has_many :reports, as: :reportable, dependent: :destroy
   has_many :suggestions, dependent: :destroy
 
-  validates :title, :description, :header_image, :author_id, presence: true
-  validates_length_of :title, within: 5..100
-  validates_length_of :description, within: 5..200
+  validates :title, :description, :header_image, presence: true
+  validates :title, length: { within: 5..100 }
+  validates :description, length: { within: 5..200 }
 
   scope :delete_reports, ->(post_id) { find(post_id).reports.destroy_all }
 end

@@ -2,11 +2,10 @@
 
 RailsAdmin.config do |config|
   config.asset_source = :sprockets
-  RailsAdmin.config do |config|
-    config.authorize_with do
-      unless current_author.admin?
-        redirect_to main_app.root_path, alert: 'NO ACCESS: Only admin can access admin dashboard'
-      end
+  RailsAdmin.config do |conf|
+    conf.authorize_with do
+      redirect_to main_app.root_path, alert: t('no_access') unless current_author.admin?
+      config.current_user_method(&:current_author)
     end
   end
   ### Popular gems integration

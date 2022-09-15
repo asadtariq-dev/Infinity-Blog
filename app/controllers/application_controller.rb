@@ -18,16 +18,20 @@ class ApplicationController < ActionController::Base
   private
 
   def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
-    redirect_to author_profile_path(current_author), alert: 'Page Not Found'
+    redirect_to author_profile_path(current_author), alert: t('page_not_found')
   end
 
   def record_not_found
-    redirect_to author_profile_path(current_author), alert: 'Record Not Found'
+    if current_author.moderator?
+      redirect_to moderator_path
+    else
+      redirect_to author_profile_path
+    end
   end
 
   def user_not_authorized
-    flash[:alert] = 'Your are not authorized for this action'
-    redirect_to(request.referrer || root_path)
+    flash[:alert] = t('not_authorized')
+    redirect_to(request.referer || root_path)
   end
 
   def pundit_user

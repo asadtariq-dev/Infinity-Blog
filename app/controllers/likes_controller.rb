@@ -3,13 +3,9 @@
 class LikesController < ApplicationController
   def create
     @like = current_author.likes.new(like_params)
-    @post = Post.find(@like.likeable_id)
+    # @post = Post.find(@like.likeable_id)
     respond_to do |format|
-      if @like.save
-        format.js { render html: @post, status: :created, location: @post }
-      else
-        format.js { render html: @post.errors, status: :unprocessable_entity }
-      end
+      format.js if @like.save
     end
   end
 
@@ -25,6 +21,6 @@ class LikesController < ApplicationController
   private
 
   def like_params
-    params.require(:like).permit(:likeable_id, :likeable_type)
+    params.permit(:author_id, :likeable_id, :likeable_type)
   end
 end

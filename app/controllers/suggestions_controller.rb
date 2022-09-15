@@ -10,7 +10,7 @@ class SuggestionsController < ApplicationController
   def update
     respond_to do |format|
       if @suggestion.update(suggestion_params)
-        format.html { redirect_to post_path(@suggestion.post), notice: 'Suggestion successfully updated.' }
+        format.html { redirect_to post_path(@suggestion.post), notice: t('suggestion_updated') }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -19,15 +19,11 @@ class SuggestionsController < ApplicationController
 
   def create
     @suggestion = current_author.suggestions.new(suggestion_params)
-    if @suggestion.save
-      redirect_to post_path(params[:post_id]), notice:  'Suggestion successfully posted'
-    else
-      redirect_to post_path(params[:post_id]), notice:  @suggestion.errors.full_messages.to_sentence
-    end
+    redirect_to post_path(params[:post_id]), notice: t('suggestion_created') if @suggestion.save
   end
 
   def destroy
-    redirect_to post_path(params[:post_id]), alert: 'Suggestion rejected and deleted' if @suggestion.destroy
+    redirect_to post_path(params[:post_id]), alert: t('suggestion_deleted') if @suggestion.destroy
   end
 
   private

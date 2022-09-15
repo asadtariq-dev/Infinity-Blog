@@ -1,10 +1,8 @@
-
 <% like = current_author.likes.find_by(likeable: likeable) %>
 <% if like.nil? %>
-<%= button_to "♡", likes_path(format: :js), params: {like: {likeable_id: likeable.id, likeable_type: likeable.class.to_s }}, method: :post, remote: true, class:"btn btn-primary btn-small" %>
-
+  <%= button_to "♡", likes_path(author_id: current_author.id, likeable_id: likeable.id, likeable_type: likeable.class.to_s), format: :js, method: :post, remote: true, class:"btn btn-primary btn-sm" %>
 <%else%>
-<%= button_to "🤍", like_path(like), params: {like: {likeable_id: likeable.id, likeable_type: likeable.class.to_s }}, method: :delete, remote: true, class:"btn btn-secondary btn-small" %>
+  <%= button_to "🤍", like_path(like), method: :delete, remote: true, class:"btn btn-secondary btn-sm" %>
 <% end %>
 <% if likeable.class.to_s=="Post" %>
   <%= pluralize(likeable.likes.count, "Like")%>

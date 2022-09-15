@@ -1,23 +1,27 @@
 # frozen_string_literal: true
 
 class ModeratorsController < ApplicationController
+  before_action :authorize_user, only: %i[index show]
   before_action :set_post, only: %i[show publish_post]
+
   def index
     @pending_posts = Post.pending.order(created_at: :desc)
     @reported_posts = Post.joins(:reports).distinct.order(id: :desc)
     @reported_comments = Comment.joins(:reports).distinct.order(id: :desc)
   end
 
+  def show; end
+
   def publish_post
     if @post.published?
       @post.unpublished!
-      @post.update_attribute(:published_at, nil)
+      @post.update(published_at: 'nil')
       Post.delete_reports(@post.id)
-      redirect_to moderators_path, notice: 'Post has been unpublished'
+      redirect_to moderators_path, notice: t('post_unpublished')
     else
       @post.published!
-      @post.update_attribute(:published_at, Time.now)
-      redirect_to moderators_path, notice: 'Post has been approved'
+      @post.update(:published_at, Time.zone.now)
+      redirect_to moderators_path, notice: t('post_published')
     end
   end
 
@@ -25,6 +29,10 @@ class ModeratorsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def authorize_user
+    redirect_to root_path unless current_author.moderator?
   end
 
   def post_params

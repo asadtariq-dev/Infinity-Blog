@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Suggestion < ApplicationRecord
-  validates :post_id, :author_id, :content, presence: true
-  validates_length_of :content, within: 2..200
+  validates :content, presence: true
+  validates :content, length: { within: 2..200 }
 
   belongs_to :post
   belongs_to :author
   belongs_to :parent, class_name: 'Suggestion', optional: true
-  has_many :suggestions, foreign_key: :parent_id
+  has_many :suggestions, foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
 end

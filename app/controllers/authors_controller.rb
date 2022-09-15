@@ -2,6 +2,7 @@
 
 class AuthorsController < ApplicationController
   before_action :check_url, only: %i[show]
+  before_action :authorize_user, only: %i[show]
   before_action :authorize_author, only: %i[show destroy]
 
   def show
@@ -9,13 +10,17 @@ class AuthorsController < ApplicationController
   end
 
   def destroy
-    redirect_to new_session_path, notice: 'Account Deleted' if current_author.destroy
+    redirect_to new_session_path, notice: t('account_deleted') if current_author.destroy
   end
 
   private
 
   def authorize_author
     authorize current_author
+  end
+
+  def authorize_user
+    redirect_to root_path unless current_author.author?
   end
 
   def check_url

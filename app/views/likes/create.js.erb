@@ -1,2 +1,2 @@
 $('#like-btn-<%= @like.likeable_id.to_s%>').
-  html('<%= button_to "🤍", like_path(@like), method: :delete, remote: true, class:"btn btn-secondary btn-small" %>');
+  html('<%= button_to "🤍", like_path(likeable_id: @like.likeable_id, likeable_type: @like.likeable_type, method: :delete, remote: true, class:"btn btn-secondary btn-small" %>')

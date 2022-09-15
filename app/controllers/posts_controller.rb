@@ -11,7 +11,7 @@ class PostsController < ApplicationController
     if Post.find(params[:id]).published?
       @post = Post.find(params[:id])
     else
-      redirect_to root_path, notice: 'Post has been unpublished'
+      redirect_to root_path, notice: t('post_unpublished')
     end
   end
 
@@ -23,7 +23,7 @@ class PostsController < ApplicationController
     @post = current_author.posts.build(post_params)
     respond_to do |format|
       if @post.save
-        format.html { redirect_to edit_post_path(@post), notice: 'Post was successfully created.' }
+        format.html { redirect_to edit_post_path(@post), notice: t('post_created') }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -37,7 +37,7 @@ class PostsController < ApplicationController
   def update
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to edit_post_path(@post), notice: 'Post successfully updated.' }
+        format.html { redirect_to edit_post_path(@post), notice: t('post_updated') }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -47,7 +47,7 @@ class PostsController < ApplicationController
   def submit
     if @post.pending?
       @post.unpublished!
-      @post.update_attribute(:published_at, nil)
+      @post.update(:published_at, nil)
     else
       @post.pending!
     end
@@ -55,9 +55,11 @@ class PostsController < ApplicationController
   end
 
   def destroy
-          # redirect_to post_path(params[:post_id]), notice: @post.errors.full_messages.to_sentence
+    if @post.destroy
+      redirect_to author_profile_path, alert: t('post_deleted')
+    else
+      redirect_to post_path(params[:post_id]), notice: @post.errors.full_messages.to_sentence
     end
-    redirect_to '/admin', notice: 'Post Deleted Successfully'
   end
 
   private
