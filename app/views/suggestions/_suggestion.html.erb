@@ -1,14 +1,14 @@
 <div class="card mt-3 rounded">
   <div class="card-header d-flex justify-content-between">
-    <% if suggestion.author == current_author %>
+    <% if owner?(suggestion) %>
       <small>You</small>
     <%else%>
       <small>
-        <strong><%= suggestion.author.first_name %> <%= suggestion.author.last_name %></strong>
+        <strong><%= owner_name(suggestion) %></strong>
       </small>
     <% end %>
     <span>
-      <small><%= time_ago_in_words(suggestion.created_at)%> ago</small>
+      <small><%= created_time(suggestion) %> ago</small>
     </span>
   </div>
   <div class="card-body rounded-bottom">
@@ -17,8 +17,8 @@
     </div>
     <div class="mb-1 d-flex justify-content-between text-center">
       <span class="d-flex">
-        <% if suggestion.parent_id.nil? %>
-          <%if current_author.id == @post.author_id%>
+        <% if !reply?(suggestion) %>
+          <%if owner?(@post)%>
             <%= link_to "Accept", edit_post_path(@post), class:"btn btn-success btn-sm mr-2" %>
           <%end%>
           <small class="comment-form-display mr-2 height-0 btn btn-primary btn-sm">
@@ -27,7 +27,7 @@
           <div class="comment-form">
             <%= render partial: 'suggestions/form', locals: {post: suggestion.post, parent: suggestion} %>
           </div>
-          <% if current_author.id == suggestion.author_id %>
+          <% if owner?(suggestion) %>
             <small class="mr-2 height-0 btn btn-primary btn-sm">
               <%= link_to 'Edit', edit_post_suggestion_path(@post, suggestion), class: 'text-decoration-none text-white'%>
             </small>
@@ -35,15 +35,19 @@
         <% end %>
       </span>
       <span>
-        <% if suggestion.parent_id.nil? %>
-          <% if current_author.id == @post.author_id %>
+        <% if owner?(@post) %>
+          <% if !reply?(suggestion) %>
             <%= button_to "Reject", post_suggestion_path(@post, suggestion), method: :delete, class:"btn btn-dark btn-sm text-danger"%>
-          <%end%>
+          <% end %>
+        <% end %>
+        <%if owner?(suggestion)%>
+          <%= button_to "Delete", post_suggestion_path(@post, suggestion), method: :delete, class:"btn btn-danger btn-sm text-white"%>
         <%end%>
         <span>
         </div>
         <div class="pl-4">
-          <%= render suggestion.suggestions.includes(:author).order(:id) %>
+        <% replies= replies_of(suggestion)%>
+          <%= render replies %>
         </div>
       </div>
     </div>

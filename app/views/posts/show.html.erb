@@ -15,7 +15,7 @@
         </small>
         <% if @post.published? %>
           <small>
-            <b>Published</b> <%= time_ago_in_words(@post.published_at) %> ago
+            <b>Published</b> <%= published_time(@post) %> ago
           </small>
         <%else%>
           <small>Not published yet</small>

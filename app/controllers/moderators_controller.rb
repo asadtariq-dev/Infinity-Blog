@@ -15,12 +15,12 @@ class ModeratorsController < ApplicationController
   def publish_post
     if @post.published?
       @post.unpublished!
-      @post.update(published_at: 'nil')
+      @post.update(published_at: nil)
       Post.delete_reports(@post.id)
       redirect_to moderators_path, notice: t('post_unpublished')
     else
       @post.published!
-      @post.update(:published_at, Time.zone.now)
+      @post.update(published_at: Time.zone.now)
       redirect_to moderators_path, notice: t('post_published')
     end
   end

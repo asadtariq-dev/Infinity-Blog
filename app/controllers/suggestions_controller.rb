@@ -23,7 +23,7 @@ class SuggestionsController < ApplicationController
   end
 
   def destroy
-    redirect_to post_path(params[:post_id]), alert: t('suggestion_deleted') if @suggestion.destroy
+    redirect_to post_path(params[:post_id]), alert: t('suggestion_rejected') if @suggestion.destroy
   end
 
   private

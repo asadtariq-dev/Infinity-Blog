@@ -18,7 +18,6 @@ $(document).on("turbolinks:load", function () {
       $(".alert").alert("close");
     });
 });
-
 // Show textarea after clicking the reply button in post comments
 document.querySelectorAll(".comment-form-display").forEach((el) => {
   el.addEventListener("click", (ev) => {

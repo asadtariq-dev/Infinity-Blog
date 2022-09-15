@@ -1,11 +1,11 @@
 <div class="card mt-3 rounded">
   <div class="card-header d-flex justify-content-between">
-      <small>You</small>
-      <% if suggestion.post.unpublished? %>
+    <small>You</small>
+    <% if post_unpublished?(suggestion.post) %>
       <small>Post is currently unpublished</small>
-      <% end %>
+    <% end %>
     <span>
-      <small><%= time_ago_in_words(suggestion.created_at)%> ago</small>
+      <small><%= created_time(suggestion)%> ago</small>
     </span>
   </div>
   <div class="card-body rounded-bottom">

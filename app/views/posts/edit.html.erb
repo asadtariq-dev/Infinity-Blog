@@ -22,7 +22,7 @@
       <%elsif @post.pending? %>
         <%= link_to "Cancel Submission", submit_post_path(@post), method: :put, data: { confirm: 'Are you sure?' }, class:"btn btn-secondary mb-3"%>
       <%else%>
-        <% if @post.content.present? %>
+        <% if content?(@post) %>
           <%= link_to "Submit", submit_post_path(@post), method: :put, class:"btn btn-primary mb-3"%>
         <%else%>
           <p>Add some content to publish</p>
@@ -32,7 +32,7 @@
     <div class="card mb-5 border-0">
       <div class="card-header text-right">
         <% if @post.published? %>
-          <b>Published</b> <%= time_ago_in_words(@post.published_at) %> ago
+          <b>Published</b> <%= published_time(@post) %> ago
         <%else%>
           Not published yet
         <%end%>
@@ -41,7 +41,7 @@
         <div class="mb-3 p-3">
           <div class="post-form">
             <%= form_with model: @post do |form| %>
-              <div class="field bg-light">
+              <div class="field bg-light text-dark">
                 <%= form.rich_text_area :content %>
               </div>
               <div class="mt-3">

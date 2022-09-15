@@ -23,7 +23,7 @@
             <%end%>
             <% if post.published? %>
               <small>
-                <%= time_ago_in_words(post.published_at) %> ago
+                <%= published_time(post) %> ago
               </small>
             <%end%>
             <h5 class="card-title mb-2"><%= post.title%></h5>
