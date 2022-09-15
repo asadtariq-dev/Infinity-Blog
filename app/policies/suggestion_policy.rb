@@ -5,7 +5,7 @@ class SuggestionPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.id == record.post.author_id
+    user == record.post.author || user == record.author
   end
 
   def edit?

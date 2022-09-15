@@ -44,7 +44,7 @@ en:
   suggestion_created: "Suggestion successfully created"
   suggestion_updated: "Suggestion successfully updated"
   suggestion_posted: "Suggestion successfully posted"
-  suggestion_rejected: "Suggestion rejected and deleted"
+  suggestion_rejected: "Suggestion deleted"
   invalid_email: "Invalid email"
   no_access: "NO ACCESS: Only admin can access admin dashboard"
 

@@ -14,5 +14,7 @@ class Post < ApplicationRecord
   validates :title, length: { within: 5..100 }
   validates :description, length: { within: 5..200 }
 
+  scope :all_reported, -> { joins(:reports).distinct.order(id: :desc) }
+  scope :all_pending, -> { pending.order(created_at: :desc) }
   scope :delete_reports, ->(post_id) { find(post_id).reports.destroy_all }
 end

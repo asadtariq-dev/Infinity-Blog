@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  # rescue_from ActionController::RoutingError, with: :routing_error
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   protected
@@ -17,9 +18,13 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
-    redirect_to author_profile_path(current_author), alert: t('page_not_found')
-  end
+  # def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
+  #   if current_author.moderator?
+  #     redirect_to moderator_path
+  #   else
+  #     redirect_to author_profile_path(current_author), alert: t('page_not_found')
+  #   end
+  # end
 
   def record_not_found
     if current_author.moderator?

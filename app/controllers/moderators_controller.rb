@@ -2,20 +2,27 @@
 
 class ModeratorsController < ApplicationController
   before_action :authorize_user, only: %i[index show]
-  before_action :set_post, only: %i[show publish_post]
+  before_action :set_post, only: %i[show destroy publish_post]
 
   def index
-    @pending_posts = Post.pending.order(created_at: :desc)
-    @reported_posts = Post.joins(:reports).distinct.order(id: :desc)
-    @reported_comments = Comment.joins(:reports).distinct.order(id: :desc)
+    @pending_posts = Post.all_pending
+    @reported_posts = Post.all_reported
+    @reported_comments = Comment.all_reported
   end
 
   def show; end
 
+  def destroy
+    if @post.destroy
+      redirect_to root_path, alert: t('post_deleted')
+    else
+      flash[:alert] = @post.errors.full_messages.to_sentence
+    end
+  end
+
   def publish_post
     if @post.published?
       @post.unpublished!
-      @post.update(published_at: nil)
       Post.delete_reports(@post.id)
       redirect_to moderators_path, notice: t('post_unpublished')
     else

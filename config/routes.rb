@@ -15,13 +15,13 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create destroy]
     resources :suggestions, only: %i[create edit update destroy]
     member do
-      # get :submit
+      get :submit
       put :submit
     end
   end
 
   authenticate :author, ->(user) { user.moderator? } do
-    resources :moderators, only: %i[index show] do
+    resources :moderators, only: %i[index show destroy] do
       member do
         get :publish_post
         put :publish_post

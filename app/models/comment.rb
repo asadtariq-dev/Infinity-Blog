@@ -14,6 +14,9 @@ class Comment < ApplicationRecord
   has_many :reports, as: :reportable, dependent: :destroy
 
   scope :not_reply, -> { where(parent_id: nil) }
+  scope :all_reported, -> { joins(:reports).distinct.order(id: :desc)}
+
+  private
 
   def image_or_content
     errors.add(:comment, 'text or image must be present') if image.blank? && content.blank?
