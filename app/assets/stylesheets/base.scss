@@ -1,0 +1,84 @@
+// .card {
+//   border-color: #4c6c77 !important;
+
+//   .card-header {
+//     background-color: #b78cff12 !important;
+//   }
+
+//   .card-body {
+//     background-color: #40767f8a !important;
+//   }
+// }
+
+// .btn {
+//   line-height: 0;
+// }
+
+// .btn-primary {
+//   color: white;
+//   background-color: #02a6b5;
+//   border-color: #0d1117;
+// }
+
+// .btn-warning {
+//   color: #ffffff;
+//   background-color: none !important;
+//   border-color: #ffc107;
+// }
+
+// .btn-danger {
+//   color: #fff;
+//   background-color: none;
+//   border-color: #dc3545;
+// }
+
+// .cover{
+//   object-fit: cover;
+//   width: 100%;
+//   /* height: 500px; */
+//   background-size: cover;
+// }
+
+
+
+
+authors {
+  height: 100%;
+  background-color: $bg-color;
+  margin: 0;
+  padding: 0;
+  margin-top: 3%;
+  // font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.874);
+  .card-header{
+    background-color: $bg-color
+  }
+  .card-body{
+    background-color: #1c2637e0;
+    color: rgba(255, 255, 255, 0.874);
+  }
+  .card-footer{
+    background-color: #1c2637b5;;
+  }
+  .post-card{
+    .header-image{
+      width: 100%;
+      height: 120px;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+
+
+  .blog-card {
+    height: 450px;
+
+    .header-image {
+      width: 100%;
+      height: 450px;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}
