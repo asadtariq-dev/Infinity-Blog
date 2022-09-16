@@ -24,7 +24,7 @@
       <% if current_author.moderator? %>
         <%= button_to "Moderator", moderators_path, method: :get, class: "btn btn-success mb-3 mr-2" %>
       <% end %>
-      <%= button_to "Sign Out", destroy_author_session_path, method: :delete, class: "btn btn-danger mb-3" %>
+      <%= button_to "Sign Out", destroy_author_session_path, method: :delete, form: {  data: { turbo: :false } }, class: "btn btn-danger mb-3" %>
     <% end %>
   </span>
 </h4>
