@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-4">
     <%= link_to "Back", root_path, class:"btn btn-secondary mb-3"%>
-    <div class="card border-0">
+    <div class="card border">
       <div class="card-header">
         Editing Post
       </div>
@@ -29,7 +29,7 @@
         <% end %>
       <%end%>
     </div>
-    <div class="card mb-5 border-0">
+    <div class="card mb-5 border">
       <div class="card-header text-right">
         <% if @post.published? %>
           <b>Published</b> <%= published_time(@post) %> ago

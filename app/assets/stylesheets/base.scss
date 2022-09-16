@@ -4,6 +4,7 @@
 
   .card-header {
     background-color: #161b22 !important;
+    border-bottom-color:  #455e66 !important;
   }
 
   .card-body {
@@ -12,6 +13,7 @@
 
   .card-footer {
     background-color: #161b22 !important;
+    border-top-color:  #455e66 !important;
   }
 }
 
@@ -37,4 +39,14 @@
   object-fit: cover;
   width: 100%;
   background-size: cover;
+}
+
+.trix-button-group {
+  display: flex;
+  margin-bottom: 10px;
+  border: 1px solid #bbb;
+  border-top-color: #ccc;
+  border-bottom-color: #888;
+  border-radius: 3px;
+  background-color: whitesmoke;
 }

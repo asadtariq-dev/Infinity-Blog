@@ -1,10 +1,10 @@
 <div class="comment-suggestion-tab container">
-  <ul class="nav nav-tabs mb-2">
+  <ul class="nav nav-tabs mt-2 mb-2 border-0">
     <li class="nav-item">
-      <a class="nav-link active bg-dark rounded mr-2" data-bs-toggle="tab" href="#comment"><strong> <%= pluralize(post.comments.count, "Comment")%></strong></a>
+      <a class="nav-link active btn-primary rounded mr-2" data-bs-toggle="tab" href="#comment"><strong> <%= pluralize(post.comments.count, "Comment")%></strong></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link bg-secondary rounded" data-bs-toggle="tab" href="#suggestion"><strong> <%= pluralize(post.suggestions.where(parent_id: nil).count, "Suggestion")%></strong></a>
+      <a class="nav-link btn-primary rounded" data-bs-toggle="tab" href="#suggestion"><strong> <%= pluralize(post.suggestions.where(parent_id: nil).count, "Suggestion")%></strong></a>
     </li>
   </ul>
   <div class="tab-content">

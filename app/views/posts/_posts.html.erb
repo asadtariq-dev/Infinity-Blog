@@ -3,7 +3,7 @@
 </div>
 <% posts.each do |post| %>
   <%= link_to edit_post_path(post), class: 'text-decoration-none' do %>
-    <div class="card mb-3 post-card border-0">
+    <div class="card mb-3 border">
       <div class="card-body rounded">
         <div class="row">
           <div class="col-md-2">
@@ -22,11 +22,11 @@
               <span class="badge badge-secondary mb-3"> Unpublished</span>
             <%end%>
             <% if post.published? %>
-              <small>
+              <small class="text-white">
                 <%= published_time(post) %> ago
               </small>
             <%end%>
-            <h5 class="card-title mb-2"><%= post.title%></h5>
+            <h5 class="card-title mb-2 text-white"><%= post.title%></h5>
             <p class="text-secondary"><%= post.description%></p>
           </div>
         </div>
