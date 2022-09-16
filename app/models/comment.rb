@@ -14,7 +14,7 @@ class Comment < ApplicationRecord
   has_many :reports, as: :reportable, dependent: :destroy
 
   scope :not_reply, -> { where(parent_id: nil) }
-  scope :all_reported, -> { joins(:reports).distinct.order(id: :desc)}
+  scope :all_reported, -> { joins(:reports).distinct.order(id: :desc) }
 
   private
 

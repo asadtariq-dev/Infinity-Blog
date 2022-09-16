@@ -6,11 +6,11 @@ class CommentsController < ApplicationController
   def create
     @comment = current_author.comments.new(comment_params)
     if @comment.save
+      redirect_back(fallback_location: posts_url)
       flash[:notice] = t('comment_posted')
     else
       flash[:alert] = @comment.errors.full_messages.to_sentence
     end
-    redirect_back(fallback_location: posts_url)
   end
 
   def destroy
