@@ -36,7 +36,7 @@
       </span>
       <span>
         <% if owner_or_moderator?(comment) %>
-          <%= button_to "Delete", post_comment_path(comment.post_id, comment), method: :delete, class:"btn btn-danger btn-sm" %>
+          <%= button_to "Delete", post_comment_path(@post, comment), method: :delete, class:"btn btn-danger btn-sm" %>
         <% end %>
         <%= render 'reports/button', reportable: comment %>
         <span>
