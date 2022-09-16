@@ -8,7 +8,7 @@
   <span>Infinity <strong>Blog</strong></span>
   <span class="d-flex ">
     <% if locals[:moderator] %>
-      <%= button_to "Sign Out", destroy_author_session_path, method: :delete, class: "btn btn-danger mb-3" %>
+      <%= button_to "Sign Out", destroy_author_session_path, method: :delete, form: {  data: { turbo: :false } }, class: "btn btn-danger mb-3" %>
     <% else %>
       <% if locals[:home] %>
         <%= link_to "Profile", author_profile_path(current_author), class: "btn btn-primary mb-3 mr-2" %>
