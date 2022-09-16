@@ -6,19 +6,17 @@ class CommentsController < ApplicationController
   def create
     @comment = current_author.comments.new(comment_params)
     if @comment.save
-      redirect_back(fallback_location: posts_url)
-      flash[:notice] = t('comment_posted')
+      redirect_to post_path(params[:post_id]), notice: t('comment_posted')
     else
-      flash[:alert] = @comment.errors.full_messages.to_sentence
+      redirect_to post_path(params[:post_id]), alert: @comment.errors.full_messages.to_sentence
     end
   end
 
   def destroy
     if @comment.destroy
-      redirect_back(fallback_location: posts_url)
-      flash[:alert] = t('comment_deleted')
+      redirect_to post_path(params[:post_id]), alert: t('comment_deleted')
     else
-      flash[:alert] = @comment.errors.full_messages.to_sentence
+      redirect_to post_path(params[:post_id]), alert: @comment.errors.full_messages.to_sentence
     end
   end
 
