@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   has_many :reports, as: :reportable, dependent: :destroy
   has_many :suggestions, dependent: :destroy
 
-  enum :status, %i[unpublished pending published], default: 0
+  enum :status, { unpublished: 0, pending: 1, published: 2 }, default: 0
   validates :title, :description, :header_image, presence: true
   validates :title, length: { within: 5..100 }
   validates :description, length: { within: 5..200 }
