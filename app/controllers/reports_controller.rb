@@ -2,7 +2,7 @@
 
 class ReportsController < ApplicationController
   def create
-    @report = current_author.reports.new(report_params)
+    @report = Report.new(report_params)
     flash[:notice] = if @report.save
                        'Report Submitted'
                      else
@@ -12,7 +12,7 @@ class ReportsController < ApplicationController
   end
 
   def destroy
-    @report = current_author.reports.find(params[:id])
+    @report = Report.find(params[:id])
 
     flash[:notice] = if @report.destroy
                        'Report Cancelled'
@@ -25,6 +25,6 @@ class ReportsController < ApplicationController
   private
 
   def report_params
-    params.require(:report).permit(:reportable_id, :reportable_type)
+    params.permit(:author_id, :reportable_id, :reportable_type)
   end
 end

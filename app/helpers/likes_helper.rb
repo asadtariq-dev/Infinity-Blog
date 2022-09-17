@@ -2,7 +2,7 @@
 
 module LikesHelper
   def current_like(likeable)
-    current_author.likes.find_by(likeable: likeable)
+    Like.find_by(likeable: likeable)
   end
 
   def likes_count(likeable)
