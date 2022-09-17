@@ -14,8 +14,5 @@ class Author < ApplicationRecord
   validates :password, length: { within: 6..12 }
 
   has_many :posts, dependent: :destroy
-  has_many :likes, dependent: :destroy
-  has_many :comments, dependent: :destroy
   has_many :suggestions, dependent: :destroy
-  has_many :reports, dependent: :destroy
 end

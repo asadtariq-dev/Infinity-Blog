@@ -2,7 +2,7 @@
 
 module ReportsHelper
   def current_report(reportable)
-    current_author.reports.find_by(reportable: reportable)
+    Report.find_by(reportable: reportable)
   end
 
   def report_count(reportable)

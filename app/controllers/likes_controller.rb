@@ -2,12 +2,12 @@
 
 class LikesController < ApplicationController
   def create
-    @like = current_author.likes.new(like_params)
+    @like = Like.new(like_params)
     redirect_back(fallback_location: root_path) if @like.save
   end
 
   def destroy
-    @like = current_author.likes.find(params[:id])
+    @like = Like.find(params[:id])
     redirect_back(fallback_location: root_path) if @like.destroy
   end
 

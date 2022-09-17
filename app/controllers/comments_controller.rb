@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, :authorize_comment, only: %i[destroy]
 
   def create
-    @comment = current_author.comments.new(comment_params)
+    @comment = Comment.new(comment_params)
     if @comment.save
       redirect_to post_path(params[:post_id]), notice: t('comment_posted')
     else
@@ -23,11 +23,11 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.permit(:content, :image, :parent_id).merge(post_id: params[:post_id])
+    params.permit(:author_id, :content, :image, :parent_id).merge(post_id: params[:post_id])
   end
 
   def set_comment
-    @comment = current_author.comments.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def authorize_comment
