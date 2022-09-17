@@ -1,0 +1,12 @@
+<% if !owner_or_moderator?(reportable) %>
+  <% report = current_report(reportable) %>
+  <% if report.nil? %>
+    <%= button_to "Report", reports_path(author_id: current_author.id, reportable_id: reportable.id, reportable_type: reportable.class.to_s), method: :post, class:"btn btn-warning text-white btn-sm" %>
+  <%else%>
+    <%= button_to "Cancel Report", report_path(report), method: :delete, class:"btn btn-secondary btn-sm" %>
+  <% end %>
+<% else %>
+  <small class="text-warning">
+    <%= pluralize(report_count(reportable), "report")%>
+  </small>
+<% end %>

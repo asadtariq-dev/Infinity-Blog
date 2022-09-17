@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -5,3 +7,19 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+# ADMIN ACCOUNT
+Author.create!(email: 'admin@test.com', first_name: 'Admin', last_name: 'Account', role: 'admin',
+               confirmed_at: Time.zone.now, password: '12345678')
+
+# MODERATOR ACCOUNT
+Author.create!(email: 'moderator@test.com', first_name: 'Moderator', last_name: 'Account', role: 'moderator',
+               confirmed_at: Time.zone.now, password: '12345678')
+
+# 5 AUTHOR ACCOUNTS
+5.times do |user|
+  Author.create!(email: "Author#{user}@test.com", first_name: "Author #{user}", last_name: 'Account', role: 'author',
+                 confirmed_at: Time.zone.now, password: '12345678')
+end
+
+# POST requires rich-text and attached image thats why post not created with seed

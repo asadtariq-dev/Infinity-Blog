@@ -1,0 +1,33 @@
+<div class="card mb-5">
+  <div class="card-body rounded">
+    <div class="card border">
+      <div class="rounded-top" style="width: 100%; height:550px; background-size: cover; background-position: center;">
+        <%= cl_image_tag(post.header_image.key, width: '100%', height: '100%')%>
+      </div>
+    </div>
+    <div class="card-header">
+      <h1 class="card-title"><%= post.title%></h1>
+    </div>
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <small>
+          By <strong><%= post.author.first_name %> <%= post.author.last_name %></strong>
+        </small>
+        <small>
+          <strong class="text-danger"><%= post.reports.count %> Reports</strong>
+        </small>
+      </div>
+    </div>
+    <div class="card-header rounded-bottom text-center">
+      <small class="d-flex justify-content-between">
+        <span>
+        </span>
+      </small>
+    </div>
+    <div class="mb-3 p-3">
+      <div class="">
+        <%= post.content%>
+      </div>
+    </div>
+  </div>
+</div>

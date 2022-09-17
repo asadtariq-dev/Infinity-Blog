@@ -1,0 +1,44 @@
+<%= render 'shared/navbar', locals: {moderator: true} %>
+<h4 class="d-flex text-white justify-content-center mb-4">
+  <span>
+    Moderator Dashboard
+  </span>
+</h4>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card border-0">
+      <div class="card-header text-center">
+        Pending Posts
+      </div>
+      <div class="card-body">
+        <% if @pending_posts.present? %>
+          <%= render "posts", posts: @pending_posts %>
+        <%else%>
+          <%= render partial: "empty" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-5 border-0">
+      <div class="card-header text-center">
+        Reported Posts
+      </div>
+      <div class="card-body">
+        <% if @reported_posts.present? %>
+          <%= render "posts", posts: @reported_posts %>
+        <%else%>
+          <%= render partial: "empty" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-header text-white text-center">
+  Reported Comments
+</div>
+<% if @reported_comments.present? %>
+  <%= render 'shared/comments_list', comments: @reported_comments%>
+<%else%>
+  <%= render partial: "empty" %>
+<% end %>

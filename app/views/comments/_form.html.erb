@@ -1,0 +1,15 @@
+<%= form_with url: post_comments_path(post), method: :post do |form| %>
+  <% if !parent.nil? %>
+    <%= form.hidden_field :parent_id, value: "#{parent.id}"  %>
+  <% end %>
+  <div class= 'form-group'>
+    <%= form.label :comment%>
+    <%= form.text_area :content, class:"form-control mb-2 bg-transparent text-white", placeholder:"Type here..."%>
+  </div>
+  <div class= 'form-group'>
+    <%= form.file_field :image, accept: 'image/jpeg, image/png, image/jpg, image/webp'%>
+  </div>
+  <div>
+    <%= form.submit "Submit", class: 'btn btn-primary btn-sm' %>
+  </div>
+<% end %>

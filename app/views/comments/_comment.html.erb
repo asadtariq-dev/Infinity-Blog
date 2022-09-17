@@ -1,0 +1,62 @@
+<div class="card mt-3 rounded">
+  <div class="card-header d-flex justify-content-between">
+    <% if owner?(comment) %>
+      <small>You</small>
+    <%else%>
+      <small>
+        <strong><%= owner_name(comment) %></strong>
+      </small>
+    <% end %>
+    <span>
+      <small><%= created_time(comment)%> ago</small>
+    </span>
+  </div>
+  <div class="card-body rounded-bottom">
+    <div class="mb-3">
+      <%= comment.content%>
+    </div>
+    <% if image_attached?(comment) %>
+      <div class="mb-3">
+        <%= cl_image_tag(comment.image.key, width: '20%', height: '20%')%>
+      </div>
+    <% end %>
+    <div class="mb-1 d-flex justify-content-between text-center btn-sm">
+      <span class="d-flex">
+        <small class="mr-2 mt-auto">
+          <%= render 'likes/button', likeable: comment %>
+        </small>
+        <% if !reply?(comment) %>
+          <small class="comment-form-display mr-2 btn btn-primary mt-auto btn-sm">
+            <a href="#" class="text-decoration-none text-white">Reply</a>
+          </small>
+          <div class="comment-form">
+            <%= render partial: 'comments/form', locals: {post: comment.post, parent: comment} %>
+          </div>
+        <% end %>
+      </span>
+      <span>
+        <% if owner_or_moderator?(comment) %>
+          <%= button_to "Delete", post_comment_path(comment.post_id, comment), method: :delete, class:"btn btn-danger btn-sm" %>
+        <% end %>
+        <%= render 'reports/button', reportable: comment %>
+        <span>
+        </div>
+        <div class="ml-2">
+          <span class="d-flex">
+            <small class="mr-2 text-center" >
+              <%= pluralize(likes_count(comment), "Like")%>
+            </small>
+            <% if !reply?(comment) %>
+              <small>
+                <%= pluralize(reply_count(comment), "Reply")%>
+              </small>
+            <% end %>
+          </span>
+          <span></span>
+        </div>
+        <div class="pl-4">
+          <%replies = replies_of(comment)%>
+          <%= render replies %>
+        </div>
+      </div>
+    </div>

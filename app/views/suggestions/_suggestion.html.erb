@@ -1,0 +1,53 @@
+<div class="card mt-3 rounded">
+  <div class="card-header d-flex justify-content-between">
+    <% if owner?(suggestion) %>
+      <small>You</small>
+    <%else%>
+      <small>
+        <strong><%= owner_name(suggestion) %></strong>
+      </small>
+    <% end %>
+    <span>
+      <small><%= created_time(suggestion) %> ago</small>
+    </span>
+  </div>
+  <div class="card-body rounded-bottom">
+    <div class="mb-3">
+      <%= suggestion.content%>
+    </div>
+    <div class="mb-1 d-flex justify-content-between text-center">
+      <span class="d-flex">
+        <% if !reply?(suggestion) %>
+          <%if owner?(@post)%>
+            <%= link_to "Accept", edit_post_path(@post), class:"btn btn-success btn-sm mr-2" %>
+          <%end%>
+          <small class="comment-form-display mr-2 height-0 btn btn-primary btn-sm">
+            <a href="#" class="text-decoration-none text-white">Reply</a>
+          </small>
+          <div class="comment-form">
+            <%= render partial: 'suggestions/form', locals: {post: suggestion.post, parent: suggestion} %>
+          </div>
+          <% if owner?(suggestion) %>
+            <small class="mr-2 height-0 btn btn-primary btn-sm">
+              <%= link_to 'Edit', edit_post_suggestion_path(@post, suggestion), class: 'text-decoration-none text-white'%>
+            </small>
+          <% end %>
+        <% end %>
+      </span>
+      <span>
+        <% if owner?(@post) %>
+          <% if !reply?(suggestion) %>
+            <%= button_to "Reject", post_suggestion_path(@post, suggestion), method: :delete, class:"btn btn-dark btn-sm text-danger"%>
+          <% end %>
+        <% end %>
+        <%if owner?(suggestion)%>
+          <%= button_to "Delete", post_suggestion_path(@post, suggestion), method: :delete, class:"btn btn-danger btn-sm text-white"%>
+        <%end%>
+        <span>
+        </div>
+        <div class="pl-4">
+        <% replies= replies_of(suggestion)%>
+          <%= render replies %>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,10 @@
+<%= render 'shared/navbar', locals: {home: true} %>
+<% if posts?(@posts) %>
+  <%= render 'shared/blogs', posts: @posts %>
+<%else%>
+  <%= render 'shared/empty' %>
+<% end %>
+<% if comments?(@comments) %>
+  <h4 class="text-white">Recent Comments</h4>
+  <%= render 'shared/comments_list', comments: @comments%>
+<% end %>

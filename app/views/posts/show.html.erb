@@ -1,0 +1,47 @@
+<div class="card mb-5">
+  <div class="card-body rounded">
+    <div class="card border-0">
+      <div class="rounded-top" style="width: 100%; height:550px; background-size: cover; background-position: center;">
+        <%= cl_image_tag(@post.header_image.key, width: '100%', height: '100%')%>
+      </div>
+    </div>
+    <div class="card-header">
+      <h1 class="card-title"><%= @post.title%></h1>
+    </div>
+    <div class="card-header">
+      <div class="d-flex justify-content-between">
+        <small>
+          By <strong><%= @post.author.first_name %> <%= @post.author.last_name %></strong>
+        </small>
+        <% if @post.published? %>
+          <small>
+            <b>Published</b> <%= published_time(@post) %> ago
+          </small>
+        <%else%>
+          <small>Not published yet</small>
+        <%end%>
+      </div>
+    </div>
+    <div class="card-header rounded-bottom text-center">
+      <small class="d-flex justify-content-between">
+        <div id="like-btn-<%= @post.id%>" >
+          <%= render 'likes/button', likeable: @post %>
+        </div>
+        <span class="text-danger">
+          <% if @post.author == current_author %>
+            <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-primary btn-small text-decoration-none' %>
+          <% end %>
+          <%= render 'reports/button', reportable: @post %>
+        </span>
+      </small>
+    </div>
+    <div class="mb-3 p-3">
+      <div class="">
+        <%= @post.content%>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card mb-3">
+  <%= render 'shared/comment_suggestion_tab', post: @post %>
+</div>

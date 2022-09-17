@@ -1,0 +1,36 @@
+<div class=" text-white mb-3">
+  Posts
+</div>
+<% posts.each do |post| %>
+  <%= link_to edit_post_path(post), class: 'text-decoration-none' do %>
+    <div class="card mb-3 border">
+      <div class="card-body rounded">
+        <div class="row">
+          <div class="col-md-2">
+            <% if post.header_image.present? %>
+              <div class="rounded">
+                <%= cl_image_tag(post.header_image.key, width: '100%', height: '100%')%>
+              </div>
+            <%end%>
+          </div>
+          <div class="col-md-10">
+            <% if post.published? %>
+              <span class="badge badge-success mb-3"> Published</span>
+            <%elsif post.pending?%>
+              <span class="badge badge-primary mb-3"> Pending</span>
+            <%else%>
+              <span class="badge badge-secondary mb-3"> Unpublished</span>
+            <%end%>
+            <% if post.published? %>
+              <small class="text-white">
+                <%= published_time(post) %> ago
+              </small>
+            <%end%>
+            <h5 class="card-title mb-2 text-white"><%= post.title%></h5>
+            <p class="text-secondary"><%= post.description%></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
