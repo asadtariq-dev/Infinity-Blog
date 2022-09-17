@@ -5,9 +5,9 @@ class ModeratorsController < ApplicationController
   before_action :set_post, only: %i[show destroy publish_post]
 
   def index
-    @pending_posts = Post.all_pending
-    @reported_posts = Post.all_reported
-    @reported_comments = Comment.all_reported
+    @pending_posts = Post.pending.order(created_at: :desc)
+    @reported_posts = Post.all_reported.order(id: :desc)
+    @reported_comments = Comment.all_reported.order(id: :desc)
   end
 
   def show; end
@@ -23,7 +23,7 @@ class ModeratorsController < ApplicationController
   def publish_post
     if @post.published?
       @post.unpublished!
-      Post.delete_reports(@post.id)
+      helpers.delete_post_reports(@post.id)
       redirect_to moderators_path, notice: t('post_unpublished')
     else
       @post.published!
