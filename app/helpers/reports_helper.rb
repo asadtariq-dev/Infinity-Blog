@@ -8,4 +8,8 @@ module ReportsHelper
   def report_count(reportable)
     reportable.reports.count
   end
+
+  def delete_post_reports(post_id)
+    Post.find(post_id).reports.destroy_all
+  end
 end

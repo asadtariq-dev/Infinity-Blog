@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Comment < ApplicationRecord
-  validate :image_or_content
-  validates :image, presence: true, unless: :content
-  validates :content, length: { within: 0..100 }
+  scope :not_reply, -> { where(parent_id: nil) }
+  scope :all_reported, -> { joins(:reports).distinct }
 
   belongs_to :post
   belongs_to :author
@@ -13,8 +12,9 @@ class Comment < ApplicationRecord
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :reports, as: :reportable, dependent: :destroy
 
-  scope :not_reply, -> { where(parent_id: nil) }
-  scope :all_reported, -> { joins(:reports).distinct.order(id: :desc) }
+  validate :image_or_content
+  validates :image, presence: true, unless: :content
+  validates :content, length: { within: 0..100 }
 
   private
 
