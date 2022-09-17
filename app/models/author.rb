@@ -7,7 +7,7 @@ class Author < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :lockable, :confirmable
 
-  enum :role, %i[author moderator admin], default: 0
+  enum :role, { author: 0, moderator: 1, admin: 2 }, default: 0
   validates :first_name, :last_name, :email, :password, presence: true
   validates :email, uniqueness: true, format: { with: Devise.email_regexp }
   validates :first_name, :last_name, length: { within: 3..10 }
