@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
 class AuthorPolicy < ApplicationPolicy
-  class Scope < Scope
-  end
-
   def show?
     user == record
   end
 
   def destroy?
-    user == record || user.admin?
+    show? || user.admin?
   end
 
   def update?
