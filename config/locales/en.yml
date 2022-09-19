@@ -47,6 +47,7 @@ en:
   suggestion_rejected: "Suggestion deleted"
   invalid_email: "Invalid email"
   no_access: "NO ACCESS: Only admin can access admin dashboard"
+  own_profile_only: "You can only access your own profile"
 
 
 

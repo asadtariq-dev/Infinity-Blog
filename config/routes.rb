@@ -2,8 +2,7 @@
 
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  devise_for :authors
-
+  devise_for :authors, controllers: { sessions: 'authors/sessions' }
   root to: 'home#index'
 
   resources :authors, only: %i[show], as: :author_profile
