@@ -10,8 +10,7 @@
         <%= render "form", post: @post %>
       </div>
       <div class="card-footer">
-        <%= link_to "Delete", post_path(@post), class: "btn btn-danger btn-block", data: { turbo_method: :delete,
-        turbo_confirm: "Are you sure?" } %>
+        <%= button_to "Delete", post_path(@post), class: "btn btn-danger btn-block", method: :delete %>
       </div>
     </div>
   </div>

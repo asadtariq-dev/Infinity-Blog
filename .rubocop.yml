@@ -14,6 +14,7 @@ AllCops:
     - "vendor/bundle/**/*"
     - "bin/**/*"
     - "db/migrate/*"
+    - "db/seeds.rb"
 
 Layout/LineLength:
   Max: 200
