@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
     if current_author.moderator?
       redirect_to moderator_path
     else
-      redirect_to author_profile_path
+      redirect_to root_path, alert: t('record_not_found')
     end
   end
 

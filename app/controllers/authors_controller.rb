@@ -26,6 +26,6 @@ class AuthorsController < ApplicationController
   def check_url
     return if current_author.id.to_s == params[:id]
 
-    redirect_to author_profile_path(current_author)
+    redirect_to author_profile_path(current_author), alert: t('own_profile_only')
   end
 end

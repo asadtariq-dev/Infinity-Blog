@@ -20,13 +20,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_author.posts.build(post_params)
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to edit_post_path(@post), notice: t('post_created') }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
+    @post = current_author.posts.new(post_params)
+    if @post.save
+      redirect_to edit_post_path(@post), notice: t('post_created')
+    else
+      render :new
     end
   end
 
@@ -35,12 +33,10 @@ class PostsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to edit_post_path(@post), notice: t('post_updated') }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @post.update(post_params)
+      redirect_to edit_post_path(@post), notice: t('post_updated')
+    else
+      render :edit
     end
   end
 
@@ -56,7 +52,7 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-      redirect_to author_profile_path, alert: t('post_deleted')
+      redirect_to root_path, alert: t('post_deleted')
     else
       redirect_to post_path(params[:post_id]), notice: @post.errors.full_messages.to_sentence
     end
@@ -65,7 +61,7 @@ class PostsController < ApplicationController
   private
 
   def set_post
-    @post = current_author.posts.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def authorize_post
