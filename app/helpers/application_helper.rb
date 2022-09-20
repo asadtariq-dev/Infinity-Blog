@@ -28,4 +28,8 @@ module ApplicationHelper
       the_obj.comments.includes(:author).order(:id)
     end
   end
+
+  def active_class(path)
+    'active' if current_page?(path)
+  end
 end

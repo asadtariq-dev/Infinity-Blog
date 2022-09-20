@@ -1,4 +1,3 @@
-<%= render 'shared/navbar', locals: {home: true} %>
 <% if @suggestions.present? %>
   <% @suggestions.each do |suggestion| %>
     <%= render 'suggestion_card', suggestion: suggestion %>
