@@ -3,12 +3,14 @@
 class LikesController < ApplicationController
   def create
     @like = Like.new(like_params)
-    redirect_back(fallback_location: root_path) if @like.save
+    flash[:alert] = @like.errors.full_messsages unless @like.save
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
     @like = Like.find(params[:id])
-    redirect_back(fallback_location: root_path) if @like.destroy
+    flash[:alert] = @like.errors.full_messsages unless @like.destroy
+    redirect_back(fallback_location: root_path)
   end
 
   private

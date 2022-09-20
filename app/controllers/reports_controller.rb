@@ -3,23 +3,23 @@
 class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
-    flash[:notice] = if @report.save
-                       'Report Submitted'
-                     else
-                       @report.errors.full_messages.to_sentence
-                     end
-    redirect_back(fallback_location: posts_url)
+    if @report.save
+      flash[:notice] = t('report_submitted')
+    else
+      flash[:alert] = @comment.errors.full_messages.to_sentence
+    end
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
     @report = Report.find(params[:id])
 
-    flash[:notice] = if @report.destroy
-                       'Report Cancelled'
-                     else
-                       @report.errors.full_messages.to_sentence
-                     end
-    redirect_back(fallback_location: posts_url)
+    flash[:alert] = if @report.destroy
+                      t('report_cancelled')
+                    else
+                      @report.errors.full_messages.to_sentence
+                    end
+    redirect_back(fallback_location: root_path)
   end
 
   private
