@@ -33,6 +33,3 @@ Lint/AmbiguousBlockAssociation:
 
 Style/Documentation:
   Enabled: false
-
-
-  NewCops: enable

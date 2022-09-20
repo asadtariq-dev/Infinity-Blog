@@ -20,10 +20,7 @@
             <%= link_to  "My Suggestions", author_suggestions_path,class:"nav-link" %>
           </li>
           <li class="<%= active_class(new_post_path) %>">
-            <%= link_to  "New Post", new_post_path, class:"nav-link" %>
-          </li>
-          <li class="<%= active_class(edit_author_registration_path) %>">
-            <%= button_to "Edit Profile", edit_author_registration_path, method: :get, class: "nav-link btn" %>
+            <%= link_to  "New Post", new_post_path, class:"nav-link mr-4" %>
           </li>
           <li class="">
             <%= button_to "Sign Out", destroy_author_session_path, method: :delete, form: {  data: { turbo: :false } }, class: "btn btn-danger mb-3" %>
