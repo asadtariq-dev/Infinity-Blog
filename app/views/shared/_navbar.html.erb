@@ -1,43 +1,41 @@
 <nav class="navbar navbar-expand-sm navbar-dark container-fluid">
-<span class="pb-5">
+  <span class="pb-5">
     <a class="navbar-brand" href="/">Infinity <strong>Blog</strong></a>
-</span>
-<span class="ml-auto">
+  </span>
+  <span class="ml-auto">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-      <% if current_author.moderator? %>
-              <li class="">
-          <%= button_to "Sign Out", destroy_author_session_path, method: :delete, form: {  data: { turbo: :false } }, class: "btn btn-danger mb-3" %>
-        </li>
+        <% if current_author.moderator? %>
+          <li class="">
+            <%= button_to "Sign Out", destroy_author_session_path, method: :delete, form: {  data: { turbo: :false } }, class: "btn btn-danger mb-3" %>
+          </li>
         <% else %>
-        <li class="<%= active_class(root_path) %>">
-          <%= link_to  "Home", root_path, class:"nav-link" %>
-        </li>
-        <li class="<%= active_class(author_profile_path(current_author)) %>">
-          <%= link_to  "Profile", author_profile_path(current_author),class:"nav-link" %>
-        </li>
-        <li class="<%= active_class(author_suggestions_path) %>">
-          <%= link_to  "My Suggestions", author_suggestions_path,class:"nav-link" %>
-        </li>
-        <li class="<%= active_class(new_post_path) %>">
-          <%= link_to  "New Post", new_post_path, class:"nav-link" %>
-        </li>
-        <li class="<%= active_class(edit_author_registration_path) %>">
-          <%= link_to "Edit Profile", edit_author_registration_path, method: :get, class: "nav-link" %>
-        </li>
-        <li class="">
-          <%= button_to "Sign Out", destroy_author_session_path, method: :delete, form: {  data: { turbo: :false } }, class: "btn btn-danger mb-3" %>
-        </li>
-
+          <li class="<%= active_class(root_path) %>">
+            <%= link_to  "Home", root_path, class:"nav-link" %>
+          </li>
+          <li class="<%= active_class(author_profile_path(current_author)) %>">
+            <%= link_to  "Profile", author_profile_path(current_author),class:"nav-link" %>
+          </li>
+          <li class="<%= active_class(author_suggestions_path) %>">
+            <%= link_to  "My Suggestions", author_suggestions_path,class:"nav-link" %>
+          </li>
+          <li class="<%= active_class(new_post_path) %>">
+            <%= link_to  "New Post", new_post_path, class:"nav-link" %>
+          </li>
+          <li class="<%= active_class(edit_author_registration_path) %>">
+            <%= button_to "Edit Profile", edit_author_registration_path, method: :get, class: "nav-link btn" %>
+          </li>
+          <li class="">
+            <%= button_to "Sign Out", destroy_author_session_path, method: :delete, form: {  data: { turbo: :false } }, class: "btn btn-danger mb-3" %>
+          </li>
         <% end %>
-
       </ul>
-  </div>
-  <small class="d-flex text-white justify-content-between mb-2">
-  <span></span>
-  <span class="d-flex text-secondary ">
-    signed in as <%= current_author.first_name%> <%= current_author.last_name%>
-  </span>
-</small>
+    </div>
+    <small class="d-flex text-white justify-content-between mb-2">
+      <span></span>
+      <span class="d-flex text-secondary ">
+        signed in as <%= current_author.first_name%> <%= current_author.last_name%>
+      </span>
+    </small>
   </span>
 </nav>
