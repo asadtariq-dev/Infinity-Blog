@@ -8,22 +8,31 @@ class SuggestionsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @suggestion.update(suggestion_params)
-        format.html { redirect_to post_path(@suggestion.post), notice: t('suggestion_updated') }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @suggestion.update(suggestion_params)
+      redirect_to post_path(@suggestion.post), notice: t('suggestion_updated')
+    else
+      render :edit, status: :unprocessable_entity, alert: @suggestion.errors.full_messages.to_sentence
     end
   end
 
   def create
     @suggestion = current_author.suggestions.new(suggestion_params)
-    redirect_to post_path(params[:post_id]), notice: t('suggestion_created') if @suggestion.save
+
+    flash[:notice] = if @suggestion.save
+                       t('suggestion_posted')
+                     else
+                       @suggestion.errors.full_messages.to_sentence
+                     end
+    redirect_to post_path(params[:post_id])
   end
 
   def destroy
-    redirect_to post_path(params[:post_id]), alert: t('suggestion_rejected') if @suggestion.destroy
+    flash[:alert] = if @suggestion.destroy
+                      t('suggestion_rejected')
+                    else
+                      @suggestion.errors.full_messages.to_sentence
+                    end
+    redirect_to post_path(params[:post_id])
   end
 
   private

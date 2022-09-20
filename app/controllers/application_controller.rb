@@ -19,18 +19,20 @@ class ApplicationController < ActionController::Base
   private
 
   def routing_error(_error = 'Routing error', _status = :not_found, _exception = nil)
+    flash[:alert] = t('page_not_found')
     if current_author.moderator?
       redirect_to moderator_path
     else
-      redirect_to author_profile_path(current_author), alert: t('page_not_found')
+      redirect_to author_profile_path(current_author)
     end
   end
 
   def record_not_found
+    flash[:alert] = t('record_not_found')
     if current_author.moderator?
       redirect_to moderator_path
     else
-      redirect_to root_path, alert: t('record_not_found')
+      redirect_to root_path
     end
   end
 
