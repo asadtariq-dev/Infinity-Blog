@@ -1,4 +1,5 @@
-<div class="card bg-transparent rounded border-0">
+<div class="card bg-transparent rounded">
+  <%= button_to "Edit Profile", edit_author_registration_path, method: :get, class: "btn btn-secondary btn-sm mb-3" %>
   <% if current_author_has_posts %>
     <%= render "posts/posts", posts: @posts %>
   <%else%>
