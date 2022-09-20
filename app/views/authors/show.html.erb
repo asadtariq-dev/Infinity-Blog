@@ -1,4 +1,3 @@
-<%= render 'shared/navbar', locals:{home: false} %>
 <div class="card bg-transparent rounded border-0">
   <% if current_author_has_posts %>
     <%= render "posts/posts", posts: @posts %>
