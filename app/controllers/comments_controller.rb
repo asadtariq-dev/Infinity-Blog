@@ -19,7 +19,11 @@ class CommentsController < ApplicationController
                     else
                       @comment.errors.full_messages.to_sentence
                     end
-    redirect_to post_path(params[:post_id])
+    if current_author.moderator?
+      redirect_to root_path
+    else
+      redirect_to post_path(params[:post_id])
+    end
   end
 
   private

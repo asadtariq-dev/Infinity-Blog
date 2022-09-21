@@ -2,7 +2,7 @@
 
 class ModeratorsController < ApplicationController
   before_action :authorize_user, only: %i[index show]
-  before_action :set_post, only: %i[show destroy publish_post]
+  before_action :set_post, only: %i[show publish_post]
 
   def index
     @pending_posts = Post.pending.order(created_at: :desc)
@@ -11,14 +11,6 @@ class ModeratorsController < ApplicationController
   end
 
   def show; end
-
-  def destroy
-    if @post.destroy
-      redirect_to root_path, alert: t('post_deleted')
-    else
-      flash[:alert] = @post.errors.full_messages.to_sentence
-    end
-  end
 
   def publish_post
     if @post.published?

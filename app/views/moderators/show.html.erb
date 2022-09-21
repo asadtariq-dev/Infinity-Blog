@@ -7,8 +7,7 @@
       <%= link_to "Approve", publish_post_moderator_path(@post), method: :put, class:"btn btn-success mt-auto mr-2"%>
     <%else%>
       <%= link_to "Unpublish", publish_post_moderator_path(@post), method: :put, class:"btn btn-secondary mt-auto mb-3 mr-2"%>
-      <%= link_to "Delete", moderator_path(@post), class: "btn btn-danger mt-auto mb-3", data: { turbo_method: :delete,
-    turbo_confirm: "Are you sure?" } %>
+      <%= button_to "Delete", post_path(@post), class: "btn btn-danger btn-block mb-3 mt-auto", method: :delete %>
     <%end%>
   </span>
 </h4>
