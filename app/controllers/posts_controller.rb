@@ -52,10 +52,14 @@ class PostsController < ApplicationController
 
   def destroy
     if @post.destroy
-
-      redirect_to author_profile_path(current_author), alert: t('post_deleted')
+      redirect_to root_path, alert: t('post_deleted')
     else
-      render :edit, notice: @post.errors.full_messages.to_sentence
+      flash.now[:alert] = @post.errors.full_messages.to_sentence
+      if current_author.moderator?
+        redirect_to root_path
+      else
+        render :edit
+      end
     end
   end
 
