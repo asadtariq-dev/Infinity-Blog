@@ -14,7 +14,7 @@ class Comment < ApplicationRecord
 
   validate :image_or_content
   validates :image, presence: true, unless: :content
-  validates :content, length: { within: 0..100 }
+  validates :content, presence: true, unless: :image
 
   private
 
