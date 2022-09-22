@@ -6,7 +6,7 @@ class ReportsController < ApplicationController
     if @report.save
       flash[:notice] = t('report_submitted')
     else
-      flash[:alert] = @comment.errors.full_messages.to_sentence
+      flash[:alert] = @report.errors.full_messages.to_sentence
     end
     redirect_back(fallback_location: root_path)
   end
