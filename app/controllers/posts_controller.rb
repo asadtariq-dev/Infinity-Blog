@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = current_author.posts.order(id: :desc)
+    redirect_to root_path
   end
 
   def show

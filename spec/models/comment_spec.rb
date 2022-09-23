@@ -9,19 +9,19 @@ RSpec.describe Comment, type: :model do
   end
 
   let(:comment_without_image) do
-    create(:comment, content: 'this is content', author_id: author.id, post_id: post.id)
+    described_class.create(content: 'this is content', author_id: author.id, post_id: post.id)
   end
 
   let(:comment_with_image) do
-    create(:comment, image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')), content: '', author_id: author.id, post_id: post.id)
+    described_class.create(image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')), content: '', author_id: author.id, post_id: post.id)
   end
 
   let(:comment_with_image_and_content) do
-    create(:comment, image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')), content: 'this is content', author_id: author.id, post_id: post.id)
+    described_class.create(image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')), content: 'this is content', author_id: author.id, post_id: post.id)
   end
 
   let(:comment_without_image_and_content) do
-    build(:comment, author_id: author.id, post_id: post.id)
+   described_class.new(author_id: author.id, post_id: post.id)
   end
 
   describe 'association tests' do
@@ -40,19 +40,30 @@ RSpec.describe Comment, type: :model do
 
   describe 'Scope tests' do
     context 'with comments that' do
-      let(:comment_without_image) do
-        create(:comment, content: 'this is content', author_id: author.id, post_id: post.id, parent_id: nil)
+      let(:comment_with_parent_nil) do
+        described_class.create(content: 'this is content', author_id: author.id, post_id: post.id, parent_id: nil)
       end
-      let(:comment_with_image) do
-        create(:comment, content: 'this is content', author_id: author.id, post_id: post.id, parent_id: comment_without_image.id)
+      let(:comment_with_some_parent) do
+        described_class.create(content: 'this is content', author_id: author.id, post_id: post.id, parent_id: comment_without_image.id)
       end
 
       it 'have parent_id nil' do
-        expect(post.comments.not_reply).to include(comment_without_image)
+        expect(post.comments.not_reply).to include(comment_with_parent_nil)
       end
 
       it 'do not have parent_id nil' do
-        expect(post.comments.not_reply).not_to include(comment_with_image)
+        expect(post.comments.not_reply).not_to include(comment_with_some_parent)
+      end
+
+      it 'returns reported comments' do
+        reported_comment = comment_without_image
+        Report.create(author_id: author.id, reportable_id: reported_comment.id, reportable_type: reported_comment.class.to_s)
+        expect(described_class.all_reported).to include(reported_comment)
+      end
+
+      it 'returns comments where unreported comment in not included' do
+        Report.create(author_id: author.id, reportable_id: comment_without_image.id, reportable_type: comment_without_image.class.to_s)
+        expect(described_class.all_reported).not_to include(comment_with_image)
       end
     end
   end

@@ -6,8 +6,8 @@ RSpec.describe Report, type: :model do
   let(:post) do
     create(:post, author_id: author.id, header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')))
   end
-  let(:report) { create(:report, reportable: post, author_id: author.id) }
-  let(:other_report) { build(:report, reportable: post, author_id: report.author_id) }
+  let(:report) { described_class.create(reportable: post, author_id: author.id) }
+  let(:other_report) { described_class.new(reportable: post, author_id: report.author_id) }
 
   describe 'association tests' do
     it { is_expected.to belong_to(:author) }
