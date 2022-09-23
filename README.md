@@ -1,5 +1,4 @@
-# README
-Infinity Blog
+# Infinity Blog
 Blog Application based on ROR.
 
 ABSTRACT:
