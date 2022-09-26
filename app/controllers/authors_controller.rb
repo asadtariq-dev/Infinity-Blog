@@ -3,14 +3,10 @@
 class AuthorsController < ApplicationController
   before_action :check_url, only: %i[show]
   before_action :authorize_user, only: %i[show]
-  before_action :authorize_author, only: %i[show destroy]
+  before_action :authorize_author, only: %i[show]
 
   def show
     @posts = current_author.posts.order(id: :desc)
-  end
-
-  def destroy
-    redirect_to new_session_path, notice: t('account_deleted') if current_author.destroy
   end
 
   private

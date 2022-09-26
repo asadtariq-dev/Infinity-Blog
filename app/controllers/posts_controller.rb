@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = current_author.posts.order(id: :desc)
+    redirect_to root_path
   end
 
   def show
@@ -37,6 +38,7 @@ class PostsController < ApplicationController
       redirect_to edit_post_path(@post), notice: t('post_updated')
     else
       render :edit
+      flash.now[:alert] = t('invalid_values')
     end
   end
 
@@ -44,23 +46,16 @@ class PostsController < ApplicationController
     if @post.pending?
       @post.unpublished!
       @post.update(published_at: nil)
+      flash[:alert] = t('submission_cancelled')
     else
       @post.pending!
+      flash[:notice] = t('post_submitted')
     end
     redirect_to edit_post_path(@post)
   end
 
   def destroy
-    if @post.destroy
-      redirect_to root_path, alert: t('post_deleted')
-    else
-      flash.now[:alert] = @post.errors.full_messages.to_sentence
-      if current_author.moderator?
-        redirect_to root_path
-      else
-        render :edit
-      end
-    end
+    redirect_to author_profile_path(current_author), alert: t('post_deleted') if @post.destroy
   end
 
   private
