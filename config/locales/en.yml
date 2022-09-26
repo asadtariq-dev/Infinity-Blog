@@ -50,6 +50,9 @@ en:
   invalid_email: "Invalid email"
   no_access: "NO ACCESS: Only admin can access admin dashboard"
   own_profile_only: "You can only access your own profile"
+  submission_cancelled: "Submission cancelled"
+  post_submitted: "Post has been submitted"
+  invalid_values: "Invalid values for post"
 
 
 
