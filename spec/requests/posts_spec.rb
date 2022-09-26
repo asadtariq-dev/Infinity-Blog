@@ -47,7 +47,7 @@ RSpec.describe 'Posts', type: :request do
         expect(flash[:alert]).to eq('Post has been Deleted')
       end
 
-      it 'gives record not found alert if unknown post params are given' do
+      it 'gives record not found alert if unknown post id is given' do
         delete post_path(unknown_id)
         expect(flash[:alert]).to eq('Record Not Found')
       end
@@ -116,33 +116,48 @@ RSpec.describe 'Posts', type: :request do
       end
     end
 
-    # describe 'submit action' do
-    #   let(:post4) do
-    #     create(:post, status: 'unpublished', author_id: current_author.id,
-    #                   header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
-    #   end
+    describe 'submit action' do
+      let(:post4) do
+        create(:post, status: 'unpublished', author_id: current_author.id,
+                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+      end
 
-    #   it 'submits a post' do
-    #     put submit_post_path(post4.id)
-    #     expect(post4.status).to eq('pending')
-    #   end
+      let(:post5) do
+        create(:post, status: 'pending', author_id: current_author.id,
+                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+      end
 
-    # it 'cancel post submission' do
-    #   put submit_post_path(post4.id)
-    #   expect(post4.status).to eq('unpublished')
-    # end
-    # end
+      it 'submits a post' do
+        get submit_post_path(post4.id)
+        expect(flash[:notice]).to eq 'Post submitted'
+      end
 
-    # describe 'update action' do
-    #   let(:post3) do
-    #     create(:post, status: 'unpublished', author_id: current_author.id,
-    #                   header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
-    #   end
+      it 'cancel post submission' do
+        put submit_post_path(post5.id)
+        expect(flash[:alert]).to eq 'Submission cancelled'
+      end
+    end
 
-    #   it 'updates a post title' do
-    #     put post_path(post3.id), params: { post: { title: 'title updated' } }
-    #     expect(post3.title).to eq('title updated')
-    #   end
-    # end
+    describe 'update action' do
+      let(:post3) do
+        create(:post, status: 'unpublished', author_id: current_author.id,
+                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+      end
+
+      it 'updates a post title' do
+        patch post_path(post3.id), params: { post: { title: 'title updated' } }
+        expect(flash[:notice]).to eq 'Post has been updated'
+      end
+
+      it 'gives record not found alertif unknown post id is given' do
+        patch post_path(unknown_id), params: { post: { title: 'title updated' } }
+        expect(flash[:alert]).to eq 'Record Not Found'
+      end
+
+      it 'gives alert message if invalid values are given' do
+        patch post_path(post3.id), params: { post: { title: nil } }
+        expect(flash[:alert]).to eq 'Invalid values for post'
+      end
+    end
   end
 end

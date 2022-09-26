@@ -38,6 +38,7 @@ class PostsController < ApplicationController
       redirect_to edit_post_path(@post), notice: t('post_updated')
     else
       render :edit
+      flash.now[:alert] = 'Invalid values for post'
     end
   end
 
@@ -45,19 +46,16 @@ class PostsController < ApplicationController
     if @post.pending?
       @post.unpublished!
       @post.update(published_at: nil)
+      flash[:alert] = 'Submission cancelled'
     else
       @post.pending!
+      flash[:notice] = 'Post submitted'
     end
     redirect_to edit_post_path(@post)
   end
 
   def destroy
-    if @post.destroy
-
-      redirect_to author_profile_path(current_author), alert: t('post_deleted')
-    else
-      render :edit, notice: @post.errors.full_messages.to_sentence
-    end
+    redirect_to author_profile_path(current_author), alert: t('post_deleted') if @post.destroy
   end
 
   private

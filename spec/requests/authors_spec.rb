@@ -31,11 +31,6 @@ RSpec.describe 'Authors', type: :request do
       expect(response).to have_http_status(:success)
     end
 
-    it 'destroys the current author' do
-      delete author_registration_path
-      expect(response).to have_http_status(:found)
-    end
-
     it 'gives alert message when signed in author tries to go to other authors profile' do
       get author_profile_path(other_author)
       expect(flash[:alert]).to eq('You can only access your own profile')

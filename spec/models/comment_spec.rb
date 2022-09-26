@@ -21,7 +21,7 @@ RSpec.describe Comment, type: :model do
   end
 
   let(:comment_without_image_and_content) do
-   described_class.new(author_id: author.id, post_id: post.id)
+    described_class.new(author_id: author.id, post_id: post.id)
   end
 
   describe 'association tests' do
