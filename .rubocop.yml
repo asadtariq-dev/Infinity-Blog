@@ -33,3 +33,6 @@ Lint/AmbiguousBlockAssociation:
 
 Style/Documentation:
   Enabled: false
+
+RSpec/NestedGroups:
+  Max: 5
