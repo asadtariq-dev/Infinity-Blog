@@ -2,11 +2,11 @@
 
 FactoryBot.define do
   factory :author do
-    email { 'test@test.com' }
-    first_name { 'First' }
-    last_name { 'Last' }
-    role { 'author' }
-    confirmed_at { Time.zone.now }
-    password { '12345678' }
+    traits_for_enum :role, %w[author moderator admin]
+    first_name { Faker::Name.name[3..12] }
+    last_name { Faker::Name.name[3..12] }
+    email { Faker::Internet.email }
+    password { Faker::Internet.password(min_length: 6) }
+    confirmed_at { Time.current }
   end
 end
