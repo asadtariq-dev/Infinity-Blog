@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 RSpec.describe Like, type: :model do
-  let(:author) { create(:author) }
+  let(:author) { create(:author, :author) }
   let(:post) do
     create(:post, author_id: author.id, header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')))
   end
