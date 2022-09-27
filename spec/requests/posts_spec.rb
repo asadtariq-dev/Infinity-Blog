@@ -1,162 +1,234 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Posts', type: :request do
-  let(:current_author) { create(:author) }
-  let(:other_author) { create(:author, email: 'test3@rspec.com') }
+  let(:current_author) { create(:author, :author) }
+  let(:sign_in_required) { 'You need to sign in or sign up before continuing.' }
+  let(:other_author) { create(:author, :author, email: 'test3@rspec.com') }
   let(:unknown_id) { '673-322' }
+  let(:post_params) do
+    { title: 'title', description: 'this is description', content: '<div><strong>This is content of post</strong></div>', status: 'pending', author_id: current_author.id,
+      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')) }
+  end
 
-  context 'when author is NOT signed in' do
-    it 'redirects to sigin page' do
-      get '/posts/new'
-      expect(response).to redirect_to('/authors/sign_in')
+  def post_params_without_image
+    { title: 'title', description: 'this is description', content: '<div><strong>This is content of post</strong></div>', status: 'pending', author_id: current_author.id }
+  end
+
+  def unpublished_post
+    create(:post, :unpublished, author_id: current_author.id,
+                                header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+  end
+
+  def pending_post
+    create(:post, :pending, author_id: current_author.id,
+                            header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+  end
+
+  def published_post
+    create(:post, :published, author_id: current_author.id,
+                              header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+  end
+
+  describe 'when author is NOT signed in' do
+    describe '#index' do
+      it 'redirects to sigin page' do
+        get posts_path
+        expect(flash[:alert]).to eq(sign_in_required)
+      end
+    end
+
+    describe '#new' do
+      it 'redirects to sigin page' do
+        get new_post_path
+        expect(flash[:alert]).to eq(sign_in_required)
+      end
+    end
+
+    describe '#show' do
+      it 'redirects to sigin page' do
+        get post_path(published_post.id)
+        expect(flash[:alert]).to eq(sign_in_required)
+      end
+    end
+
+    describe '#destroy' do
+      it 'redirects to sigin page' do
+        delete post_path(published_post.id)
+        expect(flash[:alert]).to eq(sign_in_required)
+      end
+    end
+
+    describe '#update' do
+      it 'redirects to sigin page' do
+        patch post_path(published_post.id)
+        expect(flash[:alert]).to eq(sign_in_required)
+      end
+    end
+
+    describe '#create' do
+      it 'redirects to sigin page' do
+        post posts_path
+        expect(flash[:alert]).to eq(sign_in_required)
+      end
+    end
+
+    describe '#submit' do
+      it 'redirects to signin page' do
+        get submit_post_path(unpublished_post.id)
+        expect(flash[:alert]).to eq(sign_in_required)
+      end
     end
   end
 
-  context 'when author is signed in' do
+  describe 'when author is signed in' do
     before do
       sign_in current_author
     end
 
-    describe 'create action' do
-      it 'creates a post' do
-        post posts_path,
-             params: { post: { title: 'title', description: 'this is description', content: '<div><strong>This is content of post</strong></div>', status: 'pending', author_id: current_author.id,
-                               header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')) } }
-        expect(flash[:notice]).to eq('Post has been created')
+    describe '#create' do
+      context 'when valid post is given' do
+        it 'creates a post' do
+          post posts_path, params: { post: post_params }
+          expect(flash[:notice]).to eq('Post has been created')
+        end
       end
 
-      it 'render new template again if no header image is provided' do
-        post posts_path,
-             params: { post: { title: 'title', description: 'this is description', content: '<div><strong>This is content of post</strong></div>', status: 'pending', author_id: current_author.id } }
-        expect(response).to render_template(:new)
+      context 'when header image is not given' do
+        it 're-renders new template and post not created' do
+          post posts_path, params: { post: post_params_without_image }
+          expect(response).to render_template(:new)
+        end
       end
     end
 
-    describe 'destroy action' do
-      let(:post) do
-        create(:post, status: 'pending', author_id: current_author.id,
-                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
-      end
-      let(:other_post) do
-        create(:post, status: 'pending', author_id: other_author.id,
-                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+    describe '#destroy' do
+      def other_post
+        create(:post, :published, author_id: other_author.id,
+                                  header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
       end
 
-      it 'deletes a post' do
-        delete post_path(post)
-        expect(flash[:alert]).to eq('Post has been Deleted')
+      def own_post
+        create(:post, :published, author_id: current_author.id,
+                                  header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
       end
 
-      it 'gives record not found alert if unknown post id is given' do
-        delete post_path(unknown_id)
-        expect(flash[:alert]).to eq('Record Not Found')
+      context 'when own post is given' do
+        it 'deletes a post' do
+          delete post_path(own_post)
+          expect(flash[:alert]).to eq('Post has been Deleted')
+        end
       end
 
-      it 'gives not authorized alert if tries to delete other authors post' do
-        delete post_path(other_post)
-        expect(flash[:alert]).to eq('Your are not authorized for this action')
+      context 'when unknown post ID is given' do
+        it 'shows record not found alert' do
+          delete post_path(unknown_id)
+          expect(flash[:alert]).to eq('Record Not Found')
+        end
+      end
+
+      context 'when other author post is given' do
+        it 'shows not authorized alert' do
+          delete post_path(other_post)
+          expect(flash[:alert]).to eq('Your are not authorized for this action')
+        end
       end
     end
 
-    describe 'index action' do
-      it 'redirects to home page after getting posts from author index' do
-        get posts_path
-        expect(response).to redirect_to('/')
+    describe '#index' do
+      context 'when posts_path is requested' do
+        it 'redirects to home page' do
+          get posts_path
+          expect(response).to redirect_to(root_path)
+        end
       end
     end
 
-    describe 'show action' do
-      let(:published_post) do
-        create(:post, status: 'published', author_id: other_author.id,
-                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+    describe '#show' do
+      context 'when published post is given' do
+        it 'renders show action of post' do
+          get post_path(published_post)
+          expect(response).to render_template(:show)
+        end
       end
 
-      let(:unpublished_post) do
-        create(:post, status: 'unpublished', author_id: other_author.id,
-                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+      context 'when unpublished post is given' do
+        it 'gives post unpublished alert' do
+          get post_path(unpublished_post)
+          expect(flash[:notice]).to eq('Post has been unpublished')
+        end
       end
 
-      it 'shows the post if post id is correct and is published' do
-        get post_path(published_post)
-        expect(response).to render_template(:show)
-      end
-
-      it 'gives post unpublished alert if the requested post is currently unpublished' do
-        get post_path(unpublished_post)
-        expect(flash[:notice]).to eq('Post has been unpublished')
-      end
-
-      it 'gives record not found alert if unknown post id is given' do
-        get post_path(unknown_id)
-        expect(flash[:alert]).to eq('Record Not Found')
+      context 'when unknown post ID is given' do
+        it 'gives record not found alert' do
+          get post_path(unknown_id)
+          expect(flash[:alert]).to eq('Record Not Found')
+        end
       end
     end
 
-    describe 'edit action' do
-      let(:post3) do
-        create(:post, status: 'unpublished', author_id: current_author.id,
-                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+    describe '#edit' do
+      context 'when own post is given' do
+        it 'renders the edit template' do
+          get edit_post_path(published_post)
+          expect(response).to render_template(:edit)
+        end
       end
 
-      it 'renders the edit template' do
-        get edit_post_path(post3)
-        expect(response).to render_template(:edit)
-      end
-
-      it 'gives record not found alert if unknown post id is given' do
-        get edit_post_path(unknown_id)
-        expect(flash[:alert]).to eq('Record Not Found')
-      end
-    end
-
-    describe 'new action' do
-      it 'renders the new template' do
-        get new_post_path
-        expect(response).to render_template(:new)
+      context 'when unknown post ID is given' do
+        it 'gives record not found alert' do
+          get edit_post_path(unknown_id)
+          expect(flash[:alert]).to eq('Record Not Found')
+        end
       end
     end
 
-    describe 'submit action' do
-      let(:post4) do
-        create(:post, status: 'unpublished', author_id: current_author.id,
-                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
-      end
-
-      let(:post5) do
-        create(:post, status: 'pending', author_id: current_author.id,
-                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
-      end
-
-      it 'submits a post' do
-        get submit_post_path(post4.id)
-        expect(flash[:notice]).to eq 'Post has been submitted'
-      end
-
-      it 'cancel post submission' do
-        put submit_post_path(post5.id)
-        expect(flash[:alert]).to eq 'Submission cancelled'
+    describe '#new' do
+      context 'when new post path is requested' do
+        it 'renders the new template' do
+          get new_post_path
+          expect(response).to render_template(:new)
+        end
       end
     end
 
-    describe 'update action' do
-      let(:post3) do
-        create(:post, status: 'unpublished', author_id: current_author.id,
-                      header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg'), content: '<div><strong>This is content of post</strong></div>'))
+    describe '#submit' do
+      context 'when unpublished post is given' do
+        it 'submits a post' do
+          get submit_post_path(unpublished_post.id)
+          expect(flash[:notice]).to eq 'Post has been submitted'
+        end
       end
 
-      it 'updates a post title' do
-        patch post_path(post3.id), params: { post: { title: 'title updated' } }
-        expect(flash[:notice]).to eq 'Post has been updated'
+      context 'when submitted post is given' do
+        it 'cancel post submission' do
+          put submit_post_path(pending_post.id)
+          expect(flash[:alert]).to eq 'Submission cancelled'
+        end
+      end
+    end
+
+    describe '#update' do
+      context 'when own post is given' do
+        it 'updates a post' do
+          patch post_path(published_post.id), params: { post: { title: 'title updated' } }
+          expect(flash[:notice]).to eq 'Post has been updated'
+        end
       end
 
-      it 'gives record not found alertif unknown post id is given' do
-        patch post_path(unknown_id), params: { post: { title: 'title updated' } }
-        expect(flash[:alert]).to eq 'Record Not Found'
+      context 'when unknown post ID is given' do
+        it 'gives record not found alert' do
+          patch post_path(unknown_id), params: { post: { title: 'title updated' } }
+          expect(flash[:alert]).to eq 'Record Not Found'
+        end
       end
 
-      it 'gives alert message if invalid values are given' do
-        patch post_path(post3.id), params: { post: { title: nil } }
-        expect(flash[:alert]).to eq 'Invalid values for post'
+      context 'when invalid post params are given' do
+        it 'gives invalid values alert' do
+          patch post_path(published_post.id), params: { post: { title: nil } }
+          expect(flash[:alert]).to eq 'Invalid values for post'
+        end
       end
     end
   end
