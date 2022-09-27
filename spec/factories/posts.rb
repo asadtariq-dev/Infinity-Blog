@@ -2,10 +2,9 @@
 
 FactoryBot.define do
   factory :post do
-    title { 'Title' }
-    description { 'Description' }
-    content { '<div><strong>This is content of post</strong></div>' }
-    status { 'published' }
+    traits_for_enum :status, %w[unpublished pending published]
+    title { Faker::Lorem.paragraph(sentence_count: 1) }
+    description { Faker::Lorem.paragraph(sentence_count: 2) }
     published_at { Time.zone.now }
   end
 end

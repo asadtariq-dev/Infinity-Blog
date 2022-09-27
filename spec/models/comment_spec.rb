@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 RSpec.describe Comment, type: :model do
-  let(:author) { create(:author) }
+  let(:author) { create(:author, :author) }
 
   let(:post) do
     create(:post, author_id: author.id, header_image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')))
@@ -16,12 +16,12 @@ RSpec.describe Comment, type: :model do
     described_class.create(image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')), content: '', author_id: author.id, post_id: post.id)
   end
 
-  let(:comment_with_image_and_content) do
-    described_class.create(image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')), content: 'this is content', author_id: author.id, post_id: post.id)
-  end
-
   let(:comment_without_image_and_content) do
     described_class.new(author_id: author.id, post_id: post.id)
+  end
+
+  def comment_with_image_and_content
+    described_class.create(image: fixture_file_upload(Rails.root.join('spec/fixtures/a1.jpeg')), content: 'this is content', author_id: author.id, post_id: post.id)
   end
 
   describe 'association tests' do
@@ -40,10 +40,11 @@ RSpec.describe Comment, type: :model do
 
   describe 'Scope tests' do
     context 'with comments that' do
-      let(:comment_with_parent_nil) do
+      def comment_with_parent_nil
         described_class.create(content: 'this is content', author_id: author.id, post_id: post.id, parent_id: nil)
       end
-      let(:comment_with_some_parent) do
+
+      def comment_with_some_parent
         described_class.create(content: 'this is content', author_id: author.id, post_id: post.id, parent_id: comment_without_image.id)
       end
 
