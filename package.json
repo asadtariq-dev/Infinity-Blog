@@ -1,8 +1,15 @@
 {
   "dependencies": {
     "@rails/webpacker": "3.5",
+    "bootstrap": "^5.2.1",
     "jquery": "^3.6.1",
+    "moment": "^2.29.4",
     "rails_admin": "3.0.0",
+    "react-bootstrap": "^2.5.0",
+    "react-markdown": "^8.0.3",
+    "react-router-dom": "^5.3.3",
+    "rehype-raw": "^6.1.1",
+    "rehype-sanitize": "^5.0.1",
     "stimulus": "^3.1.0",
     "stimulus_reflex": "3.4.1"
   },
