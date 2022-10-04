@@ -5,6 +5,12 @@ Rails.application.routes.draw do
   devise_for :authors, controllers: { sessions: 'authors/sessions' }
   root to: 'home#index'
 
+  namespace :api do
+    namespace :v1 do
+      resources :posts, only: %i[index show]
+    end
+  end
+
   resources :authors, only: %i[show], as: :author_profile
   resources :likes, only: %i[create destroy]
   resources :reports, only: %i[create destroy]
