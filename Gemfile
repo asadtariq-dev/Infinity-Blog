@@ -44,12 +44,11 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-gem 'devise'
-# Use Sass to process CSS
+gem 'active_model_serializers'
 gem 'activestorage-cloudinary-service'
 gem 'bootstrap', '~> 5.2.0'
 gem 'cloudinary'
-# gem 'cssbundling-rails'
+gem 'devise'
 gem 'jquery-rails'
 gem 'pry'
 gem 'pry-byebug'
