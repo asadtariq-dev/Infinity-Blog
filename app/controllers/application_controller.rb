@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include ActionController::Serialization
   include Pundit::Authorization
 
   # before_action :authenticate_author! ## to allow api request
